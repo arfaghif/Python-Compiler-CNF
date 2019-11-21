@@ -12,5 +12,9 @@ with open('test.txt', 'r') as f:
 		alist.append(i.replace('\t',"").replace('\n',''))
 	print(f_contents)
 	print(alist)
+	li = []
+	for i in alist:
+		li.append(i.replace('\t',"").replace('\n','').split(" "))
 
 	print(key.kwlist)
+	print(li)
