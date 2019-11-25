@@ -1,5 +1,10 @@
+#Kumpulan accept
 S -> T Int
+S -> Int
+
+#Transisi
 T -> Int Eq
+
 #Kumpulan char
 Char -> !
 Char -> "
@@ -95,6 +100,7 @@ Char -> {
 Char -> |
 Char -> }
 Char -> ~
+#Kumpulan integer
 Int -> 0
 Int -> 1
 Int -> 2
@@ -105,9 +111,11 @@ Int -> 6
 Int -> 7
 Int -> 8
 Int -> 9
+#kumpulan operator boolean
 Eq -> >
 Eq -> >=
 Eq -> <
 Eq -> <=
 Eq -> ==
 Eq -> !=
+#kumpulan

@@ -174,7 +174,7 @@ class Grammar(object):
         self.parse_table = None
         self.length = 0
         for line in open(filename):
-            if (line[0] == "#"):
+            if (line[0] == "#" or line[0] == "\n"):
                 continue
             a, b = line.split("->")
             self.grammar_rules[b.rstrip().strip()]=a.rstrip().strip()
