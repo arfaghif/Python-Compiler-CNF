@@ -165,6 +165,7 @@ class Grammar(object):
     length = 0
     tokens = []
     number_of_trees = 0
+    start = []
     
     #Parameters:
     #   Filename: file containing a grammar
@@ -173,8 +174,13 @@ class Grammar(object):
         self.grammar_rules = Dictlist()
         self.parse_table = None
         self.length = 0
-        for line in open(filename):
+        self.start = []
+        file = open(filename)
+        for line in file:
             if (line[0] == "#" or line[0] == "\n"):
+                continue
+            if (line[0] == "$" ):
+                self.start.append(line.split("->")[1].rstrip().strip())
                 continue
             a, b = line.split("->")
             self.grammar_rules[b.rstrip().strip()]=a.rstrip().strip()
@@ -242,7 +248,8 @@ class Grammar(object):
                                     self.parse_table[l-1][s-1].add_production(w,a,b)
                                
         self.number_of_trees = len(self.parse_table[self.length-1][0].get_types)
-        if  'S' in self.parse_table[self.length-1][0].get_types:
+        print(self.start)
+        if   (isanysame(self.parse_table[self.length-1][0].get_types,self.start)) :
             print("----------------------------------------")
             print('The sentence IS accepted in the language')
             print('Number of possible trees: ' + str(self.number_of_trees))
@@ -265,8 +272,8 @@ class Grammar(object):
                       
     #Print the CYK parse trable for the last sentence that have been parsed.             
     def print_parse_table(self):
-        pass
-        """
+        
+        
         try:
             from tabulate import tabulate
         except (ModuleNotFoundError,ImportError) as r:
@@ -298,4 +305,9 @@ class Grammar(object):
         print('')
         print(tabulate(lines))
         print('')
-    """
+    
+def isanysame(L1, L2):
+    for i in L1:
+        if i in L2:
+            return True
+    return False

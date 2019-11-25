@@ -1,9 +1,12 @@
+$ -> Char
+$ -> Assign
+$ -> Bool
+$ -> Int 
 #Kumpulan accept
-S -> T Int
-S -> Int
+
+
 
 #Transisi
-T -> Int Eq
 
 #Kumpulan char
 Char -> !
@@ -100,6 +103,7 @@ Char -> {
 Char -> |
 Char -> }
 Char -> ~
+
 #Kumpulan integer
 Int -> 0
 Int -> 1
@@ -111,6 +115,7 @@ Int -> 6
 Int -> 7
 Int -> 8
 Int -> 9
+
 #kumpulan operator boolean
 Eq -> >
 Eq -> >=
@@ -118,4 +123,76 @@ Eq -> <
 Eq -> <=
 Eq -> ==
 Eq -> !=
-#kumpulan
+
+#kumpulan keyword
+AO -> and
+AO -> or
+As -> as
+Break -> break
+Class -> class
+Continue -> continue
+Def -> def
+Elif -> elif
+Else -> else
+For -> for
+From -> from
+If -> if
+Import -> import
+In -> in
+Is -> is
+Not -> not
+Pass -> pass
+Raise -> raise
+Return -> return
+While -> while
+With -> with
+
+Assign -> Sign Int
+Assign -> Sign List
+Assign -> Sign Char
+Assign -> Sign Op
+Assign -> Op
+Sign -> Var =
+
+#List
+List -> [ ]
+List -> [ Lo
+Lo -> any ]
+
+Var -> any
+Any -> any
+
+#Operator
+Op -> Opi Int
+Opi -> Int +
+Opi -> Int -
+Opi -> Int /
+Opi -> Int *
+Opi -> Int //
+Opi -> Int **
+Opi -> Int %
+Opi -> Op +
+Opi -> Op -
+Opi -> Op /
+Opi -> Op *
+Opi -> Op //
+Opi -> Op **
+Opi -> Op %
+
+#boolean
+Bool -> 0
+Bool -> 1
+Bool -> 2
+Bool -> 3
+Bool -> 4
+Bool -> 5
+Bool -> 6
+Bool -> 7
+Bool -> 8
+Bool -> 9
+Bool -> Bol Int
+Bool -> AON Bool
+Bol -> Int Eq
+AON -> not
+AON -> Bool AO
+
