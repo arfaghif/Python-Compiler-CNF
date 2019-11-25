@@ -1,4 +1,6 @@
-S -> Char Int
+S -> T Int
+T -> Int Eq
+#Kumpulan char
 Char -> !
 Char -> "
 Char -> #
@@ -103,3 +105,9 @@ Int -> 6
 Int -> 7
 Int -> 8
 Int -> 9
+Eq -> >
+Eq -> >=
+Eq -> <
+Eq -> <=
+Eq -> ==
+Eq -> !=

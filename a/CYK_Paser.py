@@ -174,6 +174,8 @@ class Grammar(object):
         self.parse_table = None
         self.length = 0
         for line in open(filename):
+            if (line[0] == "#"):
+                continue
             a, b = line.split("->")
             self.grammar_rules[b.rstrip().strip()]=a.rstrip().strip()
         
@@ -263,6 +265,8 @@ class Grammar(object):
                       
     #Print the CYK parse trable for the last sentence that have been parsed.             
     def print_parse_table(self):
+        pass
+        """
         try:
             from tabulate import tabulate
         except (ModuleNotFoundError,ImportError) as r:
@@ -294,3 +298,4 @@ class Grammar(object):
         print('')
         print(tabulate(lines))
         print('')
+    """

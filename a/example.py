@@ -3,7 +3,7 @@
 from CYK_Paser import Grammar
 
 g = Grammar('example_grammar1.txt')
-g.parse('c')
+g.parse('1 == 2')
 g.print_parse_table()
 
 print('')
