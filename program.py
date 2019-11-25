@@ -6,9 +6,9 @@ import keyword as key
 def ignore_tab(X):
 	temp = '\t'
 	duar = ""
-	for i in (X):
-		if((i != '\') and (i+1 != 't')):
-			duar = duar + i
+	for i in (len(X)):
+		if(((i != (len(X)-1)) and (X[i] != '\'') and (X[i+1] != 't')) or (X[i] == 't')):
+			duar = duar + X[i]
 	return duar
 
 with open('test.txt', 'r') as f:
@@ -18,5 +18,8 @@ with open('test.txt', 'r') as f:
 	for i in range (jmlbaris):
 		print(f_contents[i])
 		
+	duar = ignore_tab(f_contents[1])
+	print(duar)
+	
 	print(f_contents)
 	#print(key.kwlist)
