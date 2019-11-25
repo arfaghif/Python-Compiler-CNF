@@ -3,8 +3,8 @@
 import keyword as key
 
 
-with open('test.txt', 'r') as f:
-	print(f.name)
+with open('grammar.txt', 'r') as f:
+	"""print(f.name)
 	f_contents = f.readlines()
 	#f_contents = [line[:-1] for line in f_contents]
 	alist = []
@@ -17,4 +17,6 @@ with open('test.txt', 'r') as f:
 		li.append(i.replace('\t',"").replace('\n','').split(" "))
 
 	print(key.kwlist)
-	print(li)
+	print(li)"""
+	f1 = f.read().split("->")
+	print(f1)
