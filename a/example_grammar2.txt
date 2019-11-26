@@ -1,12 +1,4 @@
-S -> NP VP
-VP -> VP PP
-VP -> V NP
-VP -> eats
-PP -> P NP
-NP -> Det N
-NP -> she
-V -> eats
-P -> with
-N -> fish
-N -> fork
-Det -> a
+        """if (len(lex) != 0):
+            if (lex[-1] not in symbols and lex[-1] not in KEYWORDS  and lexeme not in symbols  and lexeme not in KEYWORDS  ) :
+                lexeme = lex [-1] + " " + lexeme
+                del lex[-1]"""

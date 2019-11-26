@@ -3,9 +3,11 @@
 from CYK_Paser import Grammar
 
 g = Grammar('example_grammar1.txt')
-file = open("input3.txt")
-i=1
 
+with open("input.txt",'r') as file:
+    data = file.read()
+    g.parse(data)
+"""
 for line in  file :
     print("HASIL BARIS KE" ,i)
     if (line == "") :
@@ -16,7 +18,7 @@ for line in  file :
             #pass
             g.print_parse_table()
     i += 1
-
+"""
 
 """g.parse("from PIL import Image")
 g.print_parse_table()"""

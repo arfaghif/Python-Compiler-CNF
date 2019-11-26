@@ -192,7 +192,7 @@ class Grammar(object):
         print('Grammar file readed succesfully. Rules readed:')
         self.print_rules()
         print('')
-    
+        
     #Print the production rules in the grammar
     def print_rules(self):
         pass
@@ -347,25 +347,22 @@ def lexer(string):
         if string[i] in symbols :
             lex.append(char)
         elif string[i] in skip :
-            continue
+            if lexeme != '' :
+                lex.append(lexeme)
+                lexeme = ''
         else :
             if char != white_space:
                 lexeme += char # adding a char each time
             if (i+1 < len(string)): # prevents error
                 if string[i+1] == white_space or string[i+1] in symbols or (lexeme in KEYWORDS and string[i+1] not in valid): # if next char == ' '
                     if lexeme != '':
-                        if (len(lex) != 0):
-                            if ((lex[-1] not in symbols) and (lex[-1] not in KEYWORDS)  and (lexeme not in symbols)  and (lexeme not in KEYWORDS)  and not(isInt(lexeme)) and not(isInt(lex[-1]))) :
-                                lexeme = lex [-1] + " " + lexeme
-                                del lex[-1]
-                        lex.append(lexeme)
-                        lexeme = ''
+                            if lexeme != '' :
+                                lex.append(lexeme)
+                                lexeme = ''
     if lexeme not in skip :
-        if (len(lex) != 0):
-            if (lex[-1] not in symbols and lex[-1] not in KEYWORDS  and lexeme not in symbols  and lexeme not in KEYWORDS  ) :
-                lexeme = lex [-1] + " " + lexeme
-                del lex[-1]
-        lex.append(lexeme)
+        if lexeme != '' :
+            lex.append(lexeme)
+            lexeme = ''
     print(lex)
     return lex
 
