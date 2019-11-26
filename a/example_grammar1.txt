@@ -1,0 +1,176 @@
+#Kumpulan accept
+#Jadi S itu pake dollar dollar gini. Kenapa? biar bisa satu variabel doang kwkwkw
+$ -> String
+$ -> Assign
+$ -> Bool
+$ -> Int
+$ -> Cab
+$ -> FL
+$ -> WL
+$ -> D
+$ -> IM
+$ -> IMA
+$ -> C
+$ -> R
+$ -> Break
+$ -> Continue
+$ -> Return
+$ -> Pass
+
+
+
+
+#Transisi
+
+#Kumpulan String
+String -> EA Petik
+EA -> Petik Any
+String -> EB Kutip
+EB -> Kutip MAny
+
+
+
+
+#kumpulan operator boolean
+Eq -> >
+Eq -> >=
+Eq -> <
+Eq -> <=
+Eq -> ==
+Eq -> !=
+Eq -> is
+
+#kumpulan keyword
+AO -> and
+AO -> or
+As -> as
+Break -> break
+Class -> class
+Continue -> continue
+Def -> def
+Elif -> elif
+Else -> else
+For -> for
+From -> from
+If -> if
+Import -> import
+In -> in
+Is -> is
+Not -> not
+Pass -> pass
+Raise -> raise
+Return -> return
+While -> while
+With -> with
+Range -> range
+
+Assign -> Sign Int
+Assign -> Sign List
+Assign -> Sign String
+Assign -> Sign Op
+Assign -> Op
+Sign -> Var SamD
+
+#List
+List -> Sbuka Stutup
+List -> Sbuka Content
+Content -> Any Stutup
+
+Var -> any
+Any -> any
+
+#simbol kepake
+SamD -> =
+TD -> :
+Sbuka -> [
+Stutup -> ]
+Buka -> (
+Tutup -> )
+Petik -> "
+Kutip -> '
+
+#Operator
+Op -> Opi Int
+Opi -> Int Opu
+Opi -> Op Opu
+Opu -> +
+Opu -> -
+Opu -> /
+Opu -> *
+Opu -> //
+Opu -> **
+Opu -> %
+
+#boolean
+Bool -> Bol Int
+Bool -> AON Bool
+Bol -> Int Eq
+AON -> not
+AON -> Bool AO
+
+#kondisioal
+Cab -> Else TD
+Cab -> Cond TD
+Cond -> IF Bool
+Cond -> Elif Bool
+
+#while
+WL -> Ulang TD
+Ulang -> While Bool
+
+#For 
+FL -> AB TD
+AB -> AC Tutup
+AC -> AD Int
+AD -> AE Buka
+AE -> AF Range
+AF -> AG In
+AG -> For Var
+
+#Def
+D -> Def TD
+D -> BA TD
+BA -> BB Tutup
+BB -> BC Content
+BC -> Def Buka
+
+#Class
+C -> Class TD
+C -> BA TD
+BC -> Class Buka
+
+#import
+IM -> Import Any
+IMA -> CA Any
+CA -> IM As
+IM -> From CB
+CB -> Any IM
+
+#Raise
+R -> DA Tutup
+DA -> DB Petik
+DB -> DC Any
+DC -> DD Petik
+DD -> DE Buka
+DE -> Raise Any
+
+
+#tuple
+Tup -> Buka Tutup
+Tup -> FA Tutup
+FA -> Buka Any
+
+#Method
+Method -> Any Tup
+
+#Multi Any
+
+
+# TODO
+#with sama gabung gabung gitu belum
+#baca file per line
+#rapihin program biar ga keliatan ngopas
+
+
+#Variabel belum kepake
+#2 huruf abjad mulai FB

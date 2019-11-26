@@ -1,25 +1,12 @@
-char -> "" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
 
-int -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | int
-
-string -> char | int | string string
-
-boolean -> False | True | var blank "==" blank var | "(" bool ")" | bool blank and blank bool | bool blank or blank bool | not bool
-
-list -> "[" "]" | "[" blank content blank "]"
-
-content -> var | content blank "," blank content
-
-IoB -> int | bool
-
-var -> string | bool | int | list | "(" blank var blank ")" | operationib | operationchr | None
-
-operationchr -> string blank + blank string | operationchr blank + blank string | IoB blank * blank string | "(" blank operationchr blank ")" | IoB blank * blank operationchr | "(" blank operationib  blank ")" blank * blank operationchr | "(" blank operationib blank ")" blank * blank string
-
-operationib -> IoB blank + blank IoB | IoB blank - blank IoB | IoB blank * blank IoB | IoB blank / blank IoB | IoB blank // blank IoB | IoB blank % blank IoB | IoB blank ** blank IoB | operationib blank + blank IoB | operationib blank - blank IoB | operationib blank * blank IoB | operationib blank / blank IoB | operationib blank // blank IoB | operationib blank % blank IoB | operationib blank ** blank IoB
-
-blank -> " " | "/t" | blank blank
-
-assign -> any blank "=" blank var
-
-
+char-> a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9
+int-> 0 1 2 3 4 5 6 7 8 9 int
+string-> char int string string
+boolean-> False True var == var ( bool ) bool and bool bool or bool not bool
+list-> [ ] [ content ]
+content-> var content , content
+IoB-> int bool
+var-> string bool int list ( var ) operationib operationchr None
+operationchr-> string + string operationchr + string IoB * string ( operationchr ) IoB * operationchr ( operationib ) * operationchr ( operationib ) * string
+operationib-> IoB + IoB IoB - IoB IoB * IoB IoB / IoB IoB // IoB IoB % IoB IoB ** IoB operationib + IoB operationib - IoB operationib * IoB operationib / IoB operationib // IoB operationib % IoB operationib ** IoB
+assign-> any = var
