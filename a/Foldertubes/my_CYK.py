@@ -105,6 +105,8 @@ class Grammar(object):
                 if isInt(t):
                     self.parseTab[0][x].appendProduksi("Int",rules(t,None,None),None)
                     self.parseTab[0][x].appendProduksi("Bool",rules(t,None,None),None)
+                if isAtt(t):
+                    self.parseTab[0][x].appendProduksi("Att",rules(t,None,None),None)
                 if r != None:
                     for w in r: 
                         self.parseTab[0][x].appendProduksi(w,rules(t,None,None),None)
@@ -148,6 +150,9 @@ def isanysame(L1, L2):
         if i in L2:
             return True
     return False
+
+def isAtt(r):
+    return r[0] == '.'
 
 def isVar(r):
     if r not in keyword.kwlist :

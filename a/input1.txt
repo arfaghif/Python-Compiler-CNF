@@ -1,33 +1,21 @@
-#NIM/Nama   : 16518251/Naufal Arfananda Ghifari
-#Tanggal    : 21 September 2018
-#Deskripsi  : Pembagian anggota tim
+def get_rule_category(rule: dict) -> str:
+    ''' Get rule category in string. This category is also a key for its corresponding dictionary.
+        Input(dict) = rule
+        Output(str) = category of the rule
 
-#Program Games ITB
-#Dibentuk beberapa tim untuk acara Games ini, harus semua ikut, dan harus pula sama rata.
-
-#KAMUS
-#N:integer
-#i,j,k:integer
-#A: Array of integer
-#count, FPB: integer
-
-#ALGORITMA
-
-N=int(input('Masukkan jumlah fakultas: '))
-A = [0 for A in range(N)] #Deklarasi Array
-for i in range(N):
-    A[i] = int(input('Jumlah mahasiswa dari fakultas '+ str(i+1)+ ': '))
-j=1
-while j <=A[0]:
-    count=0
-    k=0
-    while k<N:
-        if (A[k]%j==0):
-           count=count+1 
+        Example:
+        Input   = {'producer': 'N', 'product': ['people']}
+        Output  = 'terminal'
+    '''
+    rule_product = rule[PRODUCT_KEY]
+    if len(rule_product) == 0:
+        return EPSILON_RULE_KEY
+    elif len(rule_product) == 1:
+        if rule_product[0].islower:
+            return TERMINAL_RULE_KEY
         else:
-            break
-        k=k+1
-    if count==N:
-        FPB=j
-    j=j+1
-print('Jumlah anggota tim terbanyak yang mungkin adalah  '+str(FPB))
+            return UNARY_RULE_KEY
+    elif len(rule_product) == 2:
+        return BINARY_RULE_KEY
+    else:
+        return N_ARIES_RULE_KEY

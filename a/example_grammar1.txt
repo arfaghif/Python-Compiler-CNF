@@ -412,7 +412,6 @@ Opu -> Slash Slash
 Opu -> Multiply Multiply
 
 #boolean
-Bool -> Var List
 Bool -> Bol Int
 Bool -> Bol Neg
 Bool -> Bol Var
@@ -454,6 +453,7 @@ InBol -> String In
 
 #Var
 Var -> Var List
+Var -> Var Att
 
 #Var, Int Bool tuple
 Var -> HZ Tutup
@@ -475,11 +475,14 @@ AN -> Buka Neg
 Cab -> Else TD
 Cab -> Cond TD
 Cond -> If Bool
+Cond -> If Var
 Cond -> Elif Bool
+Cond -> Elif Var
 
 #while
 WL -> Ulang TD
 Ulang -> While Bool
+Ulang -> While Var
 
 #For 
 FL -> AB TD
