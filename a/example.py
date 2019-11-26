@@ -7,7 +7,9 @@ g = Grammar('example_grammar1.txt')
 with open("input.txt",'r') as file:
     data = file.read()
     g.parse(data)
-"""
+
+"""file = open("input.txt")
+i =1
 for line in  file :
     print("HASIL BARIS KE" ,i)
     if (line == "") :
@@ -19,6 +21,7 @@ for line in  file :
             g.print_parse_table()
     i += 1
 """
+
 
 """g.parse("from PIL import Image")
 g.print_parse_table()"""

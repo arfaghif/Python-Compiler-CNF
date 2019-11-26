@@ -1,9 +1,11 @@
 #Kumpulan accept
 #Jadi S itu pake dollar dollar gini. Kenapa? biar bisa satu variabel doang kwkwkw
 
-$ -> Assign
 $ -> Bool
 $ -> Int
+$ -> String
+
+$ -> Assign
 $ -> Cab
 $ -> FL
 $ -> WL
@@ -12,19 +14,18 @@ $ -> IM
 $ -> IMA
 $ -> C
 $ -> R
+$ -> WITH
+$ -> Method
+
 $ -> Break
 $ -> Continue
 $ -> Return
 $ -> Pass
-$ -> Method
-$ -> String
-$ -> WITH
+
 $ -> S
 
-
+#START
 S -> S Assign
-S -> S Bool
-S -> S Int
 S -> S Cab
 S -> S FL
 S -> S WL
@@ -38,358 +39,428 @@ S -> S Continue
 S -> S Return
 S -> S Pass
 S -> S Method
-S -> S String
 S -> S WITH
+
 S -> Assign Assign
-S -> Assign Bool
-S -> Assign Int
-S -> Assign Cab
-S -> Assign FL
-S -> Assign WL
-S -> Assign D
-S -> Assign IM
-S -> Assign IMA
-S -> Assign C
-S -> Assign R
-S -> Assign Break
-S -> Assign Continue
-S -> Assign Return
-S -> Assign Pass
-S -> Assign Method
-S -> Assign String
-S -> Assign WITH
-S -> Bool Assign
-S -> Bool Bool
-S -> Bool Int
-S -> Bool Cab
-S -> Bool FL
-S -> Bool WL
-S -> Bool D
-S -> Bool IM
-S -> Bool IMA
-S -> Bool C
-S -> Bool R
-S -> Bool Break
-S -> Bool Continue
-S -> Bool Return
-S -> Bool Pass
-S -> Bool Method
-S -> Bool String
-S -> Bool WITH
-S -> Int Assign
-S -> Int Bool
-S -> Int Int
-S -> Int Cab
-S -> Int FL
-S -> Int WL
-S -> Int D
-S -> Int IM
-S -> Int IMA
-S -> Int C
-S -> Int R
-S -> Int Break
-S -> Int Continue
-S -> Int Return
-S -> Int Pass
-S -> Int Method
-S -> Int String
-S -> Int WITH
 S -> Cab Assign
-S -> Cab Bool
-S -> Cab Int
-S -> Cab Cab
-S -> Cab FL
-S -> Cab WL
-S -> Cab D
-S -> Cab IM
-S -> Cab IMA
-S -> Cab C
-S -> Cab R
-S -> Cab Break
-S -> Cab Continue
-S -> Cab Return
-S -> Cab Pass
-S -> Cab Method
-S -> Cab String
-S -> Cab WITH
 S -> FL Assign
-S -> FL Bool
-S -> FL Int
-S -> FL Cab
-S -> FL FL
-S -> FL WL
-S -> FL D
-S -> FL IM
-S -> FL IMA
-S -> FL C
-S -> FL R
-S -> FL Break
-S -> FL Continue
-S -> FL Return
-S -> FL Pass
-S -> FL Method
-S -> FL String
-S -> FL WITH
 S -> WL Assign
-S -> WL Bool
-S -> WL Int
-S -> WL Cab
-S -> WL FL
-S -> WL WL
-S -> WL D
-S -> WL IM
-S -> WL IMA
-S -> WL C
-S -> WL R
-S -> WL Break
-S -> WL Continue
-S -> WL Return
-S -> WL Pass
-S -> WL Method
-S -> WL String
-S -> WL WITH
 S -> D Assign
-S -> D Bool
-S -> D Int
-S -> D Cab
-S -> D FL
-S -> D WL
-S -> D D
-S -> D IM
-S -> D IMA
-S -> D C
-S -> D R
-S -> D Break
-S -> D Continue
-S -> D Return
-S -> D Pass
-S -> D Method
-S -> D String
-S -> D WITH
 S -> IM Assign
-S -> IM Bool
-S -> IM Int
-S -> IM Cab
-S -> IM FL
-S -> IM WL
-S -> IM D
-S -> IM IM
-S -> IM IMA
-S -> IM C
-S -> IM R
-S -> IM Break
-S -> IM Continue
-S -> IM Return
-S -> IM Pass
-S -> IM Method
-S -> IM String
-S -> IM WITH
 S -> IMA Assign
-S -> IMA Bool
-S -> IMA Int
-S -> IMA Cab
-S -> IMA FL
-S -> IMA WL
-S -> IMA D
-S -> IMA IM
-S -> IMA IMA
-S -> IMA C
-S -> IMA R
-S -> IMA Break
-S -> IMA Continue
-S -> IMA Return
-S -> IMA Pass
-S -> IMA Method
-S -> IMA String
-S -> IMA WITH
 S -> C Assign
-S -> C Bool
-S -> C Int
-S -> C Cab
-S -> C FL
-S -> C WL
-S -> C D
-S -> C IM
-S -> C IMA
-S -> C C
-S -> C R
-S -> C Break
-S -> C Continue
-S -> C Return
-S -> C Pass
-S -> C Method
-S -> C String
-S -> C WITH
 S -> R Assign
-S -> R Bool
-S -> R Int
-S -> R Cab
-S -> R FL
-S -> R WL
-S -> R D
-S -> R IM
-S -> R IMA
-S -> R C
-S -> R R
-S -> R Break
-S -> R Continue
-S -> R Return
-S -> R Pass
-S -> R Method
-S -> R String
-S -> R WITH
 S -> Break Assign
-S -> Break Bool
-S -> Break Int
-S -> Break Cab
-S -> Break FL
-S -> Break WL
-S -> Break D
-S -> Break IM
-S -> Break IMA
-S -> Break C
-S -> Break R
-S -> Break Break
-S -> Break Continue
-S -> Break Return
-S -> Break Pass
-S -> Break Method
-S -> Break String
-S -> Break WITH
 S -> Continue Assign
-S -> Continue Bool
-S -> Continue Int
-S -> Continue Cab
-S -> Continue FL
-S -> Continue WL
-S -> Continue D
-S -> Continue IM
-S -> Continue IMA
-S -> Continue C
-S -> Continue R
-S -> Continue Break
-S -> Continue Continue
-S -> Continue Return
-S -> Continue Pass
-S -> Continue Method
-S -> Continue String
-S -> Continue WITH
 S -> Return Assign
-S -> Return Bool
-S -> Return Int
-S -> Return Cab
-S -> Return FL
-S -> Return WL
-S -> Return D
-S -> Return IM
-S -> Return IMA
-S -> Return C
-S -> Return R
-S -> Return Break
-S -> Return Continue
-S -> Return Return
-S -> Return Pass
-S -> Return Method
-S -> Return String
-S -> Return WITH
 S -> Pass Assign
-S -> Pass Bool
-S -> Pass Int
-S -> Pass Cab
-S -> Pass FL
-S -> Pass WL
-S -> Pass D
-S -> Pass IM
-S -> Pass IMA
-S -> Pass C
-S -> Pass R
-S -> Pass Break
-S -> Pass Continue
-S -> Pass Return
-S -> Pass Pass
-S -> Pass Method
-S -> Pass String
-S -> Pass WITH
 S -> Method Assign
-S -> Method Bool
-S -> Method Int
-S -> Method Cab
-S -> Method FL
-S -> Method WL
-S -> Method D
-S -> Method IM
-S -> Method IMA
-S -> Method C
-S -> Method R
-S -> Method Break
-S -> Method Continue
-S -> Method Return
-S -> Method Pass
-S -> Method Method
-S -> Method String
-S -> Method WITH
-S -> String Assign
-S -> String Bool
-S -> String Int
-S -> String Cab
-S -> String FL
-S -> String WL
-S -> String D
-S -> String IM
-S -> String IMA
-S -> String C
-S -> String R
-S -> String Break
-S -> String Continue
-S -> String Return
-S -> String Pass
-S -> String Method
-S -> String String
-S -> String WITH
 S -> WITH Assign
-S -> WITH Bool
-S -> WITH Int
+S -> Assign Cab
+S -> Cab Cab
+S -> FL Cab
+S -> WL Cab
+S -> D Cab
+S -> IM Cab
+S -> IMA Cab
+S -> C Cab
+S -> R Cab
+S -> Break Cab
+S -> Continue Cab
+S -> Return Cab
+S -> Pass Cab
+S -> Method Cab
 S -> WITH Cab
+S -> Assign FL
+S -> Cab FL
+S -> FL FL
+S -> WL FL
+S -> D FL
+S -> IM FL
+S -> IMA FL
+S -> C FL
+S -> R FL
+S -> Break FL
+S -> Continue FL
+S -> Return FL
+S -> Pass FL
+S -> Method FL
 S -> WITH FL
+S -> Assign WL
+S -> Cab WL
+S -> FL WL
+S -> WL WL
+S -> D WL
+S -> IM WL
+S -> IMA WL
+S -> C WL
+S -> R WL
+S -> Break WL
+S -> Continue WL
+S -> Return WL
+S -> Pass WL
+S -> Method WL
 S -> WITH WL
+S -> Assign D
+S -> Cab D
+S -> FL D
+S -> WL D
+S -> D D
+S -> IM D
+S -> IMA D
+S -> C D
+S -> R D
+S -> Break D
+S -> Continue D
+S -> Return D
+S -> Pass D
+S -> Method D
 S -> WITH D
+S -> Assign IM
+S -> Cab IM
+S -> FL IM
+S -> WL IM
+S -> D IM
+S -> IM IM
+S -> IMA IM
+S -> C IM
+S -> R IM
+S -> Break IM
+S -> Continue IM
+S -> Return IM
+S -> Pass IM
+S -> Method IM
 S -> WITH IM
+S -> Assign IMA
+S -> Cab IMA
+S -> FL IMA
+S -> WL IMA
+S -> D IMA
+S -> IM IMA
+S -> IMA IMA
+S -> C IMA
+S -> R IMA
+S -> Break IMA
+S -> Continue IMA
+S -> Return IMA
+S -> Pass IMA
+S -> Method IMA
 S -> WITH IMA
+S -> Assign C
+S -> Cab C
+S -> FL C
+S -> WL C
+S -> D C
+S -> IM C
+S -> IMA C
+S -> C C
+S -> R C
+S -> Break C
+S -> Continue C
+S -> Return C
+S -> Pass C
+S -> Method C
 S -> WITH C
+S -> Assign R
+S -> Cab R
+S -> FL R
+S -> WL R
+S -> D R
+S -> IM R
+S -> IMA R
+S -> C R
+S -> R R
+S -> Break R
+S -> Continue R
+S -> Return R
+S -> Pass R
+S -> Method R
 S -> WITH R
+S -> Assign Break
+S -> Cab Break
+S -> FL Break
+S -> WL Break
+S -> D Break
+S -> IM Break
+S -> IMA Break
+S -> C Break
+S -> R Break
+S -> Break Break
+S -> Continue Break
+S -> Return Break
+S -> Pass Break
+S -> Method Break
 S -> WITH Break
+S -> Assign Continue
+S -> Cab Continue
+S -> FL Continue
+S -> WL Continue
+S -> D Continue
+S -> IM Continue
+S -> IMA Continue
+S -> C Continue
+S -> R Continue
+S -> Break Continue
+S -> Continue Continue
+S -> Return Continue
+S -> Pass Continue
+S -> Method Continue
 S -> WITH Continue
+S -> Assign Return
+S -> Cab Return
+S -> FL Return
+S -> WL Return
+S -> D Return
+S -> IM Return
+S -> IMA Return
+S -> C Return
+S -> R Return
+S -> Break Return
+S -> Continue Return
+S -> Return Return
+S -> Pass Return
+S -> Method Return
 S -> WITH Return
+S -> Assign Pass
+S -> Cab Pass
+S -> FL Pass
+S -> WL Pass
+S -> D Pass
+S -> IM Pass
+S -> IMA Pass
+S -> C Pass
+S -> R Pass
+S -> Break Pass
+S -> Continue Pass
+S -> Return Pass
+S -> Pass Pass
+S -> Method Pass
 S -> WITH Pass
+S -> Assign Method
+S -> Cab Method
+S -> FL Method
+S -> WL Method
+S -> D Method
+S -> IM Method
+S -> IMA Method
+S -> C Method
+S -> R Method
+S -> Break Method
+S -> Continue Method
+S -> Return Method
+S -> Pass Method
+S -> Method Method
 S -> WITH Method
-S -> WITH String
+S -> Assign WITH
+S -> Cab WITH
+S -> FL WITH
+S -> WL WITH
+S -> D WITH
+S -> IM WITH
+S -> IMA WITH
+S -> C WITH
+S -> R WITH
+S -> Break WITH
+S -> Continue WITH
+S -> Return WITH
+S -> Pass WITH
+S -> Method WITH
 S -> WITH WITH
 
-
-#Transisi
 
 #Kumpulan String
 String -> Kutip Kutip
 String -> Petik Petik
 String -> EA Petik
-EA -> Petik MAny
 String -> EB Kutip
+EA -> Petik MAny
 EB -> Kutip MAny
-
-
-
 
 #kumpulan operator boolean
 Eq -> >
-Eq -> Greater SamD
 Eq -> <
+Eq -> is
+Eq -> Greater SamD
 Eq -> Less SamD
 Eq -> SamD SamD
 Eq -> Seru SamD
-Eq -> is
+
+#Assign
+Assign -> Sign Int
+Assign -> Sign List
+Assign -> Sign String
+Assign -> Sign Op
+Assign -> Sign Method
+Assign -> Sign Var
+Assign -> Sign VarT
+Sign -> Var SamD
+
+#List
+List -> Sbuka Stutup
+List -> Sbuka Content
+Content -> MAny Stutup
+
+#Operator
+Op -> Opi Int
+Opi -> Int Opu
+Opi -> Op Opu
+Opu -> +
+Opu -> -
+Opu -> /
+Opu -> *
+Opu -> %
+Opu -> Slash Slash
+Opu -> Multiply Multiply
+
+#boolean
+Bool -> Bol Int
+Bool -> Bol Var
+Bool -> Bol VarT
+Bool -> AON Bool
+Bool -> AON BoolT
+Bool -> AON Var
+Bool -> AON VarT
+Bool -> InBol Var
+Bool -> InBol VarT
+Bool -> InBol Int
+Bol -> Int Eq
+Bol -> Var Eq
+Bol -> VarT Eq
+AON -> not
+AON -> Bool AO
+AON -> BoolT AO
+InBol -> Var In
+InBol -> VarT In
+InBol -> Int In
+InBol -> String In
+
+#Var, Int Bool tuple
+VarT -> HZ Tutup
+HZ -> Buka Var
+HZ -> Buka VarT
+IntT -> HY Tutup
+HY -> Buka Int
+HY -> Buka IntT
+BoolT -> HX Tutup
+HX -> Buka Bool
+HX -> Buka BoolT
+
+#kondisioal
+Cab -> Else TD
+Cab -> Cond TD
+Cond -> If Bool
+Cond -> If BoolT
+Cond -> Elif Bool
+Cond -> Elif BoolT
+
+#while
+WL -> Ulang TD
+Ulang -> While Bool
+
+#For 
+FL -> AB TD
+AB -> AC Tutup
+AB -> AF Var
+AB -> AF VarT
+AB -> AF List
+AC -> AD Int
+AD -> AE Buka
+AE -> AF Range
+AF -> AG In
+AG -> For Var
+AG -> For VarT
+
+#Def
+D -> BA TD
+BA -> Def Method
+
+#Class
+C -> BC TD
+BC -> Class Method
+
+#import
+IM -> Import Any
+IM -> From CB
+IMA -> CA Any
+CA -> IM As
+CB -> Any IM
+
+#Raise
+R -> DA Tutup
+DA -> DB Petik
+DB -> DC Any
+DC -> DD Petik
+DD -> DE Buka
+DE -> Raise Any
+
+#tuple
+Tup -> Buka Tutup
+Tup -> FA Tutup
+FA -> Buka Any
+
+#Method
+Method -> Any Tup
+Method -> Any HA
+HA -> Buka HB
+HB -> Method Tutup
+HB -> Var Tutup
+HB -> VarT Tutup
+HB -> String Tutup
+HB -> MAny Tutup
+
+#With
+WITH -> GA TD
+GA -> GB Var
+GA -> GB VarT
+GB -> GC As
+GC -> With MAny
+
+#Komentar 
+Kom -> Kutip IA
+IA -> Kutip IB
+IB -> Kutip IC
+IC -> MAny ID
+ID -> Kutip IE
+IE -> Kutip Kutip
+
+#Return
+Ret -> return
+Ret -> Return Var
+Ret -> Return VarT
+Ret -> Return Bool
+Ret -> Return Int
+Ret -> Return Op
+Ret -> Return String
+
+#Op sritng
+OpS -> JA String
+JA -> String Plus
+JA
+
+#Terminal untuk boolean
 Less -> <
 Greater -> >
 Seru -> !
+SamD -> =
+TD -> :
+
+#Pengurungan
+Sbuka -> [
+Stutup -> ]
+Buka -> (
+Tutup -> )
+Petik -> "
+Kutip -> '
+KurawalB -> {
+KurawalT -> }
+
+#Terminal lain
+Koma -> ,
+
+#Operator
+Plus -> +
+Slash -> /
+Multiply -> *
 
 #kumpulan keyword
 AO -> and
@@ -415,131 +486,3 @@ While -> while
 With -> with
 Range -> range
 
-Assign -> Sign Int
-Assign -> Sign List
-Assign -> Sign String
-Assign -> Sign Op
-Assign -> Sign Method
-Assign -> Sign Var
-Sign -> Var SamD
-
-#List
-List -> Sbuka Stutup
-List -> Sbuka Content
-Content -> MAny Stutup
-
-Var -> any
-Any -> any
-
-#simbol kepake
-SamD -> =
-TD -> :
-Sbuka -> [
-Stutup -> ]
-Buka -> (
-Tutup -> )
-Petik -> "
-Kutip -> '
-
-#Operator
-Op -> Opi Int
-Opi -> Int Opu
-Opi -> Op Opu
-Opu -> +
-Opu -> -
-Opu -> /
-Opu -> *
-Opu -> Slash Slash
-Opu -> Multiply Multiply
-Opu -> %
-Slash -> /
-Multiply -> *
-
-#boolean
-Bool -> Bol Int
-Bool -> Bol Var
-Bool -> AON Bool
-Bool -> AON Var
-Bool -> InBol Var
-Bool -> InBol Int
-Bol -> Int Eq
-Bol -> Var Eq
-AON -> not
-AON -> Bool AO
-InBol -> Var In
-InBol -> Int In
-InBol -> String In
-
-
-#kondisioal
-Cab -> Else TD
-Cab -> Cond TD
-Cond -> If Bool
-Cond -> Elif Bool
-
-#while
-WL -> Ulang TD
-Ulang -> While Bool
-
-#For 
-FL -> AB TD
-AB -> AC Tutup
-AB -> AF Var
-AB -> AF List
-AC -> AD Int
-AD -> AE Buka
-AE -> AF Range
-AF -> AG In
-AG -> For Var
-
-#Def
-D -> Def TD
-D -> BA TD
-BA -> Def Method
-
-#Class
-C -> Class TD
-C -> BA TD
-BC -> Class Buka
-
-#import
-IM -> Import Any
-IMA -> CA Any
-CA -> IM As
-IM -> From CB
-CB -> Any IM
-
-#Raise
-R -> DA Tutup
-DA -> DB Petik
-DB -> DC Any
-DC -> DD Petik
-DD -> DE Buka
-DE -> Raise Any
-
-
-#tuple
-Tup -> Buka Tutup
-Tup -> FA Tutup
-FA -> Buka Any
-
-#Method
-Method -> Any Tup
-Method -> Any HA
-HA -> Buka HB
-HB -> Method Tutup
-HB -> Var Tutup
-HB -> String Tutup
-HB -> MAny Tutup
-#Multi Any
-
-WITH -> GA TD
-GA -> GB Var
-GB -> GC As
-GC -> With MAny
-# TODO
-#rapihin program biar ga keliatan ngopas
-
-
-#Variabel belum kepake
-#2 huruf abjad mulai H
