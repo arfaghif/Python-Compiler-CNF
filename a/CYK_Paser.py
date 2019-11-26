@@ -212,55 +212,61 @@ class Grammar(object):
     #Parse a sentence (string) with the CYK algorithm   
     def parse(self,sentence):
         self.number_of_trees = 0
-        self.tokens = lexer(sentence.replace("True", "1").replace("False", "1").replace("None", "1"))
-        self.length = len(self.tokens)
-        if self.length < 1:
-            raise ValueError("The sentence could no be read")
-        self.parse_table = [ [Cell() for x in range(self.length - y)] for y in range(self.length) ]
-        
-         #Process the first line
-        for x, t in enumerate(self.tokens):
-            r = self.apply_rules(t)
-            self.parse_table[0][x].add_production("MAny",production_rule(t,None,None),None)
-            if len(t.split())==1 :
-                self.parse_table[0][x].add_production("Any",production_rule(t,None,None),None)
-            if isVar(t) :
-                self.parse_table[0][x].add_production("Var",production_rule(t,None,None),None)
-            if isInt(t):
-                self.parse_table[0][x].add_production("Int",production_rule(t,None,None),None)
-                self.parse_table[0][x].add_production("Bool",production_rule(t,None,None),None)
-            if r != None:
-                for w in r: 
-                    self.parse_table[0][x].add_production(w,production_rule(t,None,None),None)
-        
-        
-        #Run CYK-Parser
-        
-        
-        for l in range(2,self.length+1):
-            for s in range(1,self.length-l+2):
-                self.parse_table[l-1][s-1].add_production("MAny",None,None)
-                for p in range(1,l-1+1):
-                    t1 = self.parse_table[p-1][s-1].get_rules
-                    t2 = self.parse_table[l-p-1][s+p-1].get_rules
-                            
-                    for a in t1:
-                        for b in t2:
-                            #print(a,b,r)
-                            r = self.apply_rules(str(a.get_type) + " " + str(b.get_type))
-                            if r is not None:
-                                for w in r:
-                                    #print('Applied Rule: ' + str(w) + '[' + str(l) + ',' + str(s) + ']' + ' --> ' + str(a.get_type) + '[' + str(p) + ',' + str(s) + ']' + ' ' + str(b.get_type)+ '[' + str(l-p) + ',' + str(s+p) + ']')
-                                    self.parse_table[l-1][s-1].add_production(w,a,b)
-                               
-        self.number_of_trees = len(self.parse_table[self.length-1][0].get_types)
-        if   (isanysame(self.parse_table[self.length-1][0].get_types,self.start)) :
-            print("----------------------------------------")
-            print('The sentence IS accepted in the language')
-            print('Number of possible trees: ' + str(self.number_of_trees))
-            print("----------------------------------------")
+        self.tokens, Lanjut = lexer(sentence.replace("True", "1").replace("False", "1").replace("None", "1"))
+        if Lanjut :
+            self.length = len(self.tokens)
+            if self.length < 1:
+                raise ValueError("The sentence could no be read")
+            self.parse_table = [ [Cell() for x in range(self.length - y)] for y in range(self.length) ]
             
-        else:
+            
+            #Process the first line
+            for x, t in enumerate(self.tokens):
+                r = self.apply_rules(t)
+                self.parse_table[0][x].add_production("MAny",production_rule(t,None,None),None)
+                if len(t.split())==1 :
+                    self.parse_table[0][x].add_production("Any",production_rule(t,None,None),None)
+                if isVar(t) :
+                    self.parse_table[0][x].add_production("Var",production_rule(t,None,None),None)
+                if isInt(t):
+                    self.parse_table[0][x].add_production("Int",production_rule(t,None,None),None)
+                    self.parse_table[0][x].add_production("Bool",production_rule(t,None,None),None)
+                if r != None:
+                    for w in r: 
+                        self.parse_table[0][x].add_production(w,production_rule(t,None,None),None)
+            
+            
+            #Run CYK-Parser
+            
+            
+            for l in range(2,self.length+1):
+                for s in range(1,self.length-l+2):
+                    self.parse_table[l-1][s-1].add_production("MAny",None,None)
+                    for p in range(1,l-1+1):
+                        t1 = self.parse_table[p-1][s-1].get_rules
+                        t2 = self.parse_table[l-p-1][s+p-1].get_rules
+                                
+                        for a in t1:
+                            for b in t2:
+                                #print(a,b,r)
+                                r = self.apply_rules(str(a.get_type) + " " + str(b.get_type))
+                                if r is not None:
+                                    for w in r:
+                                        #print('Applied Rule: ' + str(w) + '[' + str(l) + ',' + str(s) + ']' + ' --> ' + str(a.get_type) + '[' + str(p) + ',' + str(s) + ']' + ' ' + str(b.get_type)+ '[' + str(l-p) + ',' + str(s+p) + ']')
+                                        self.parse_table[l-1][s-1].add_production(w,a,b)
+                                
+            self.number_of_trees = len(self.parse_table[self.length-1][0].get_types)
+            if   (isanysame(self.parse_table[self.length-1][0].get_types,self.start)) :
+                print("----------------------------------------")
+                print('The sentence IS accepted in the language')
+                print('Number of possible trees: ' + str(self.number_of_trees))
+                print("----------------------------------------")
+                
+            else:
+                print("--------------------------------------------")
+                print('The sentence IS NOT accepted in the language')
+                print("--------------------------------------------")
+        else :
             print("--------------------------------------------")
             print('The sentence IS NOT accepted in the language')
             print("--------------------------------------------")
@@ -343,17 +349,58 @@ def lexer(string):
     lexeme = ''
     lex =[]
     hash = False
+    loop = False
+    cdil = False
+    deff = False
+    brconpas = False
+    cond = False
+    cond0 = 0
     for i,char in enumerate(string):
         if char == '\n':
             hash = False
+            brconpas = False
         if char == '#':
             hash = True
+            brconpas = False
         if hash :
             continue
+        if brconpas :
+            if char not in skip and char != white_space :
+                return [], False
         if string[i] in symbols :
             lex.append(char)
         elif string[i] in skip :
             if lexeme != '' :
+                if lexeme == "for" or lexeme == "while" :
+                    loop = True
+                    cdil = True
+                if lexeme == "if" :
+                    cond = True
+                    cond0 += 1
+                    cdil = True
+                if lexeme == "def":
+                    deff = True
+                    cdil = True
+                if lexeme == "class":
+                    cdil = True
+                if lexeme == "break" or lexeme == "continue" :
+                    brconpas = True
+                    if not (loop) :
+                        return [] , False
+                if lexeme == "return":
+                    hash = True
+                    if not deff :
+                        return [] , False
+                if lexeme == "pass" and not cdil :
+                    brconpas = True
+                    return [], False
+                if lexeme == "elif" and not cond:
+                    return [], False
+                if lexeme == "else" :
+                    if cond0<=0:
+                        return [], False
+                    else:
+                        cond0 -= 1
                 lex.append(lexeme)
                 lexeme = ''
         else :
@@ -363,6 +410,36 @@ def lexer(string):
                 if string[i+1] == white_space or string[i+1] in symbols or (lexeme in KEYWORDS and string[i+1] not in valid): # if next char == ' '
                     if lexeme != '':
                             if lexeme != '' :
+                                if lexeme == "for" or lexeme == "while" :
+                                    loop = True
+                                    cdil = True
+                                if lexeme == "if" :
+                                    cond = True
+                                    cond0 += 1
+                                    cdil = True
+                                if lexeme == "def":
+                                    deff = True
+                                    cdil = True
+                                if lexeme == "class":
+                                    cdil = True
+                                if lexeme == "break" or lexeme == "continue" :
+                                    brconpas = True
+                                    if not (loop) :
+                                        return [] , False
+                                if lexeme == "return":
+                                    hash = True
+                                    if not deff :
+                                        return [] , False
+                                if lexeme == "pass" and not cdil :
+                                    brconpas = True
+                                    return [], False
+                                if lexeme == "elif" and not cond:
+                                    return [], False
+                                if lexeme == "else":
+                                    if cond0<=0:
+                                        return [], False
+                                    else:
+                                        cond0 -= 1
                                 lex.append(lexeme)
                                 lexeme = ''
     if lexeme not in skip :
@@ -370,5 +447,5 @@ def lexer(string):
             lex.append(lexeme)
             lexeme = ''
     print(lex)
-    return lex
+    return lex , True
 
