@@ -334,8 +334,7 @@ def isInt(t):
 
 
 def lexer(string):
-    symbols = ['{', '}', '(', ')', '[', ']',  '"', '*', ':', ',',"'",'"', '='] # single-char keywords
-    other_symbols = ['#'] # multi-char keywords
+    symbols = ['(', ')', '[', ']', ">", "<", "!", '"', '*',"/", "+", "-","%", ':', ',',"'", '='] # single-char keywords
     KEYWORDS =keyword.kwlist
     KEYWORDS.append("range")
     skip = ["\n","","\t"]
@@ -343,7 +342,14 @@ def lexer(string):
     white_space = ' '
     lexeme = ''
     lex =[]
+    hash = False
     for i,char in enumerate(string):
+        if char == '\n':
+            hash = False
+        if char == '#':
+            hash = True
+        if hash :
+            continue
         if string[i] in symbols :
             lex.append(char)
         elif string[i] in skip :
