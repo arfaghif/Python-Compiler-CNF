@@ -12,7 +12,7 @@ for line in  file :
         print("ACCEPTED")
     else :
         g.parse(line)
-        if (i==6) :
+        if (i==16) :
             #pass
             g.print_parse_table()
     i += 1

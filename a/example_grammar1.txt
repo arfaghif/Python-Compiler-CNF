@@ -1,6 +1,6 @@
 #Kumpulan accept
 #Jadi S itu pake dollar dollar gini. Kenapa? biar bisa satu variabel doang kwkwkw
-$ -> String
+
 $ -> Assign
 $ -> Bool
 $ -> Int
@@ -16,15 +16,18 @@ $ -> Break
 $ -> Continue
 $ -> Return
 $ -> Pass
-
-
+$ -> Method
+$ -> String
+$ -> WITH
 
 
 #Transisi
 
 #Kumpulan String
+String -> Kutip Kutip
+String -> Petik Petik
 String -> EA Petik
-EA -> Petik Any
+EA -> Petik MAny
 String -> EB Kutip
 EB -> Kutip MAny
 
@@ -33,12 +36,15 @@ EB -> Kutip MAny
 
 #kumpulan operator boolean
 Eq -> >
-Eq -> >=
+Eq -> Greater SamD
 Eq -> <
-Eq -> <=
-Eq -> ==
-Eq -> !=
+Eq -> Less SamD
+Eq -> SamD SamD
+Eq -> Seru SamD
 Eq -> is
+Less -> <
+Greater -> >
+Seru -> !
 
 #kumpulan keyword
 AO -> and
@@ -68,6 +74,7 @@ Assign -> Sign Int
 Assign -> Sign List
 Assign -> Sign String
 Assign -> Sign Op
+Assign -> Sign Method
 Assign -> Op
 Sign -> Var SamD
 
@@ -103,15 +110,18 @@ Opu -> %
 
 #boolean
 Bool -> Bol Int
+Bool -> Bol Var
 Bool -> AON Bool
+Bool -> AON Var
 Bol -> Int Eq
+Bol -> Var Eq
 AON -> not
 AON -> Bool AO
 
 #kondisioal
 Cab -> Else TD
 Cab -> Cond TD
-Cond -> IF Bool
+Cond -> If Bool
 Cond -> Elif Bool
 
 #while
@@ -121,6 +131,8 @@ Ulang -> While Bool
 #For 
 FL -> AB TD
 AB -> AC Tutup
+AB -> AF Var
+AB -> AF List
 AC -> AD Int
 AD -> AE Buka
 AE -> AF Range
@@ -130,9 +142,7 @@ AG -> For Var
 #Def
 D -> Def TD
 D -> BA TD
-BA -> BB Tutup
-BB -> BC Content
-BC -> Def Buka
+BA -> Def Method
 
 #Class
 C -> Class TD
@@ -162,10 +172,17 @@ FA -> Buka Any
 
 #Method
 Method -> Any Tup
-
+Method -> Any HA
+HA -> Buka HB
+HB -> Method Tutup
+HB -> Var Tutup
+HB -> String Tutup
 #Multi Any
 
-
+WITH -> GA TD
+GA -> GB Var
+GB -> GC As
+GC -> With MAny
 # TODO
 #with sama gabung gabung gitu belum
 #baca file per line
@@ -173,4 +190,4 @@ Method -> Any Tup
 
 
 #Variabel belum kepake
-#2 huruf abjad mulai FB
+#2 huruf abjad mulai H
