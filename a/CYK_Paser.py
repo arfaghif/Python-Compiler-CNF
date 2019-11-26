@@ -1,7 +1,6 @@
 import keyword
 
 class ListBahasa(dict):
-    
     def __setitem__(self, key, value):
         try:
             self[key]
@@ -10,40 +9,30 @@ class ListBahasa(dict):
         self[key].append(value)
 
 
-class rules(object):
-    
+class rules(object): 
     result = None
     leftPro = None
     rightPro = None
-    
-    #Parameters:
-    #   Result: String
-    #   leftPro: Production rule (left child of the production rule)
-    #   rightPro: Production rule (right child of the production rule)
+
     def __init__(self,result,leftPro,rightPro):
         self.result = result
         self.leftPro = leftPro
         self.rightPro = rightPro
-    
-    #Returns the result of the production rule, VP, S, NP... 
+    @property
     def tipe(self):
         return self.result
-    
-    #Returns the left child of the production rule
+
+    @property
     def kiri(self):
         return self.leftPro
-    
-    #Returns the right child of the production rule
+
+    @property
     def kanan(self):
         return self.rightPro
 
 class Cell(object):
     listPR = []
-    
-    
-    #Parameters:
-    #   Productions: List of production rules
-    
+
     def __init__(self, listPR=None):
         if listPR is None:
             self.listPR = []
@@ -57,32 +46,30 @@ class Cell(object):
         self.listPR = p
     
     @property
-    def tipe(self):
+    def tipes(self):
         types = []
         for p in self.listPR:
             types.append(p.result)
         return types
+
     @property
-    def get_rules(self):       
+    def getRules(self):       
         return self.listPR
 
 
 class Grammar(object):
     
-    grammar_rules = ListBahasa()
-    parse_table = None
-    length = 0
-    tokens = []
-    number_of_trees = 0
+    grammarRules = ListBahasa()
+    parseTab = None
+    panjang = 0
+    token = []
+    countTree = 0
     start = []
     
-    #Parameters:
-    #   Filename: file containing a grammar
-    
     def __init__(self, filename):
-        self.grammar_rules = ListBahasa()
-        self.parse_table = None
-        self.length = 0
+        self.grammarRules = ListBahasa()
+        self.parseTab = None
+        self.panjang = 0
         self.start = []
         file = open(filename)
         for line in file:
@@ -92,104 +79,95 @@ class Grammar(object):
                 self.start.append(line.split("->")[1].rstrip().strip())
                 continue
             a, b = line.split("->")
-            self.grammar_rules[b.rstrip().strip()]=a.rstrip().strip()
+            self.grammarRules[b.rstrip().strip()]=a.rstrip().strip()
         
-        if len(self.grammar_rules) == 0:
+        if len(self.grammarRules) == 0:
             raise ValueError("No rules found in the grammar file")
         print('')
         print('Grammar file readed succesfully. Rules readed:')
-        self.print_rules()
+        self.printRules()
         print('')
         
-    #Print the production rules in the grammar
-    def print_rules(self):
+    def printRules(self):
         pass
     """
-    def print_rules(self):
-        for r in self.grammar_rules:
-            for p in self.grammar_rules[r]:
+    def printRules(self):
+        for r in self.grammarRules:
+            for p in self.grammarRules[r]:
                 print(str(p) + ' --> ' + str(r))
         """
-    def apply_rules(self,t):
+    def setRules(self,t):
         try:
-            #print(self.grammar_rules[t])
-            return self.grammar_rules[t]
+            return self.grammarRules[t]
         except KeyError as r:
             return None
-            
-    #Parse a sentence (string) with the CYK algorithm   
+              
     def parse(self,sentence):
-        self.number_of_trees = 0
-        self.tokens, Lanjut = lexer(sentence.replace("True", "1").replace("False", "1").replace("None", "1"))
+        self.countTree = 0
+        self.token , Lanjut = lexer(sentence.replace("True", "1").replace("False", "1").replace("None", "1"))
+        self.panjang = len(self.token)
         if Lanjut :
-            self.length = len(self.tokens)
-            if self.length < 1:
+            if self.panjang < 1:
                 raise ValueError("The sentence could no be read")
-            self.parse_table = [ [Cell() for x in range(self.length - y)] for y in range(self.length) ]
+            self.parseTab = [ [Cell() for x in range(self.panjang - y)] for y in range(self.panjang) ]
             
-            
-            #Process the first line
-            for x, t in enumerate(self.tokens):
-                r = self.apply_rules(t)
-                self.parse_table[0][x].appendProduksi("MAny",rules(t,None,None),None)
+            for x, t in enumerate(self.token):
+                r = self.setRules(t)
+                self.parseTab[0][x].appendProduksi("MAny",rules(t,None,None),None)
                 if len(t.split())==1 :
-                    self.parse_table[0][x].appendProduksi("Any",rules(t,None,None),None)
+                    self.parseTab[0][x].appendProduksi("Any",rules(t,None,None),None)
                 if isVar(t) :
-                    self.parse_table[0][x].appendProduksi("Var",rules(t,None,None),None)
+                    self.parseTab[0][x].appendProduksi("Var",rules(t,None,None),None)
                 if isInt(t):
-                    self.parse_table[0][x].appendProduksi("Int",rules(t,None,None),None)
-                    self.parse_table[0][x].appendProduksi("Bool",rules(t,None,None),None)
+                    self.parseTab[0][x].appendProduksi("Int",rules(t,None,None),None)
+                    self.parseTab[0][x].appendProduksi("Bool",rules(t,None,None),None)
                 if r != None:
                     for w in r: 
-                        self.parse_table[0][x].appendProduksi(w,rules(t,None,None),None)
+                        self.parseTab[0][x].appendProduksi(w,rules(t,None,None),None)
             
             
             #Run CYK-Parser
             
             
-            for l in range(2,self.length+1):
-                for s in range(1,self.length-l+2):
-                    self.parse_table[l-1][s-1].appendProduksi("MAny",None,None)
+            for l in range(2,self.panjang+1):
+                for s in range(1,self.panjang-l+2):
+                    self.parseTab[l-1][s-1].appendProduksi("MAny",None,None)
                     for p in range(1,l-1+1):
-                        t1 = self.parse_table[p-1][s-1].get_rules
-                        t2 = self.parse_table[l-p-1][s+p-1].get_rules
+                        t1 = self.parseTab[p-1][s-1].getRules
+                        t2 = self.parseTab[l-p-1][s+p-1].getRules
+                                
                         for a in t1:
                             for b in t2:
                                 #print(a,b,r)
-                                r = self.apply_rules(str(a.tipe) + " " + str(b.tipe))
+                                r = self.setRules(str(a.tipe) + " " + str(b.tipe))
                                 if r is not None:
                                     for w in r:
                                         #print('Applied Rule: ' + str(w) + '[' + str(l) + ',' + str(s) + ']' + ' --> ' + str(a.tipe) + '[' + str(p) + ',' + str(s) + ']' + ' ' + str(b.tipe)+ '[' + str(l-p) + ',' + str(s+p) + ']')
-                                        self.parse_table[l-1][s-1].appendProduksi(w,a,b)
+                                        self.parseTab[l-1][s-1].appendProduksi(w,a,b)
                                 
-            self.number_of_trees = len(self.parse_table[self.length-1][0].tipe)
-            if   (isanysame(self.parse_table[self.length-1][0].tipe,self.start)) :
+            self.countTree = len(self.parseTab[self.panjang-1][0].tipes)
+            if   (isanysame(self.parseTab[self.panjang-1][0].tipes,self.start)) :
                 print("----------------------------------------")
-                print('The sentence IS accepted in the language')
-                print('Number of possible trees: ' + str(self.number_of_trees))
+                print("----------------Accepted----------------")
                 print("----------------------------------------")
-                
             else:
-                print("--------------------------------------------")
-                print('The sentence IS NOT accepted in the language')
-                print("--------------------------------------------")
-        else :
-            print("--------------------------------------------")
-            print('The sentence IS NOT accepted in the language')
-            print("--------------------------------------------")
-        
-        
-    #Returns a list containing the parent of the possible trees that we can generate for the last sentence that have been parsed
-    def get_trees(self):
-        return self.parse_table[self.length-1][0].listPR
+                print("----------------------------------------")
+                print("--------------Syntax Error--------------")
+                print("----------------------------------------")
+        else:
+            print("----------------------------------------")
+            print("--------------Syntax Error--------------")
+            print("----------------------------------------")
+    
+    def getTrees(self):
+        return self.parseTab[self.panjang-1][0].listPR
                 
                 
     #@TODO
-    def print_trees(self):
+    def printTrees(self):
         pass
-                      
-    #Print the CYK parse trable for the last sentence that have been parsed.             
-    def print_parse_table(self):
+                                  
+    def printParseTab(self):
         
         
         try:
@@ -213,13 +191,13 @@ class Grammar(object):
         
         
         
-        for row in reversed(self.parse_table):
+        for row in reversed(self.parseTab):
             l = []
             for cell in row:
-                l.append(cell.tipe)
+                l.append(cell.tipes)
             lines.append(l)
         
-        lines.append(self.tokens)
+        lines.append(self.token)
         print('')
         print(tabulate(lines))
         print('')

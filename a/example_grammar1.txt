@@ -372,16 +372,28 @@ Asss -> Var Opu
 
 #List
 List -> Sbuka Stutup
-List -> Sbuka Content
+List -> Sbuka MB
+MB -> Content Stutup
 List -> EM Tutup
-Content -> MAny Stutup
 EM -> Buka List
+MB -> List Stutup
+MB -> Method STutup
+MB -> Var STutup
+MB -> Op Stutup
+MB -> OpL Stutup
+MB -> OpS Stutup
+MB -> Bool Stutup
+MB -> String STutup
+MB -> Content STutup
+MB -> Method STutup
+MB -> Sev STutup
 
 #Operator
 Op -> Opi Int
 Op -> Opi Neg
 Op -> Opi Method
 Op -> Opi Var
+Op -> Opi Op
 Op -> EN Tutup
 EN -> Buka Op 
 Opi -> Int Opu
@@ -443,7 +455,7 @@ Var -> Var List
 #Var, Int Bool tuple
 Var -> HZ Tutup
 Var -> HT Var
-Var -> Var Koma
+HT -> Var Koma
 HZ -> Buka Var
 Int -> HY Tutup
 HY -> Buka Int
@@ -532,15 +544,52 @@ Tup -> FA Tutup
 FA -> Buka Any
 
 #Method
-Method -> Any Tup
-Method -> Any HA
-Ret -> Return Bool
+Method -> Var Tup
+Method -> Var HA
 HA -> Buka HB
 HB -> Method Tutup
 HB -> Var Tutup
 HB -> String Tutup
-HB -> MAny Tutup
-HC -> Buka Method
+HB -> Content Tutup
+HB -> Method Tutup
+HB -> Sev Tutup
+HB -> Op Tutup
+HB -> OpL Tutup
+HB -> OpS Tutup
+HB -> Bool Tutup
+#Sev -> Any ZB
+#Sev -> Any ZC
+#Sev -> Any ZD
+#Sev -> Any ZE
+#Sev -> Any ZF
+#ZB -> Any ZC
+#ZC -> Any ZD
+#ZD -> Any ZE
+#ZE -> Any ZF
+#ZF -> Any Any
+
+#Content
+Content -> ZG Sev
+Content -> ZG Var
+Content -> ZG String
+Content -> ZG Method
+Content -> ZG Int
+Content -> ZG List
+Content -> ZG Op
+Content -> ZG OpS
+Content -> ZG OpL
+Content -> ZG Bool
+ZG -> Sev Koma
+ZG -> Int Koma
+ZG -> Method Koma
+ZG -> List Koma
+ZG -> Var Koma
+ZG -> String Koma
+ZG -> Op Koma
+ZG -> OpS Koma
+ZG -> OpL Koma
+ZG -> Bool Koma
+ZG -> ZG Koma
 
 #With
 WITH -> GA TD
