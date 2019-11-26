@@ -1,6 +1,4 @@
-#NIM/Nama   : 16518251/Naufal Arfananda Ghifari
-#Tanggal    : 21 September 2018
-#Deskripsi  : Pembagian anggota tim
+
 
 #Program Games ITB
 #Dibentuk beberapa tim untuk acara Games ini, harus semua ikut, dan harus pula sama rata.

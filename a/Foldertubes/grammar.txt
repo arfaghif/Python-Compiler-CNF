@@ -341,10 +341,17 @@ String -> Petik Petik
 String -> EA Petik
 String -> EB Kutip
 String -> EC Tutup
+String -> STR T
 EC -> Buka String
 EA -> Petik MAny
 EB -> Kutip MAny
-
+T -> Buka TA
+TA -> Int Tutup
+TA -> Var Tutup
+TA -> Op Tutup
+TA -> Method Tutup
+TA -> Neg Tutup
+STR -> str
 
 #kumpulan operator boolean
 Eq -> >

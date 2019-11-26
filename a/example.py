@@ -3,13 +3,29 @@
 from CYK_Paser import Grammar
 
 g = Grammar('example_grammar1.txt')
-
+"""
 with open("input.txt",'r') as file:
     data = file.read()
     g.parse(data)
     #g.printParseTab()
+    """
+with open("input1.txt",'r') as file:
+    data = file.read()
+    g.parse(data)
+    
+    #g.printParseTab()
+    """
+with open("input2.txt",'r') as file:
+    data = file.read()
+    g.parse(data)
+    #g.printParseTab()
 
-"""file = open("input.txt")
+with open("input3.txt",'r') as file:
+    data = file.read()
+    g.parse(data)
+    #g.printParseTab()
+"""
+file = open("input1.txt")
 i =1
 for line in  file :
     print("HASIL BARIS KE" ,i)
@@ -17,11 +33,11 @@ for line in  file :
         print("ACCEPTED")
     else :
         g.parse(line)
-        if (i==16) :
-            #pass
-            g.print_parse_table()
+        if (i==4) :
+            pass
+            #g.printParseTab()
     i += 1
-"""
+
 
 
 """g.parse("from PIL import Image")
