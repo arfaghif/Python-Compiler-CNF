@@ -3,7 +3,7 @@
 from CYK_Paser import Grammar
 
 g = Grammar('example_grammar1.txt')
-file = open("input.txt")
+file = open("input3.txt")
 i=1
 
 for line in  file :

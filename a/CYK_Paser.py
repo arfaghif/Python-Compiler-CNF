@@ -337,6 +337,7 @@ def lexer(string):
     symbols = ['{', '}', '(', ')', '[', ']',  '"', '*', ':', ',',"'",'"', '='] # single-char keywords
     other_symbols = ['#'] # multi-char keywords
     KEYWORDS =keyword.kwlist
+    KEYWORDS.append("range")
     skip = ["\n","","\t"]
     valid = [ "A" , "B" , "C" , "D" , "E" , "F" , "G" , "H" , "I" , "J" , "K" , "L" , "M" , "N" , "O" , "P" , "Q" , "R" , "S" , "T" , "U" , "V" , "W" , "X" , "Y" , "Z" , "a" , "b" , "c" , "d" , "e" , "f" , "g" , "h" , "i" , "j" , "k" , "l" , "m" , "n" , "o" , "p" , "q" , "r" , "s" , "t" , "u" , "v" , "w" , "x" , "y" , "z" , "0" , "1" , "2" , "3" , "4" , "5" , "6" , "7" , "8" , "9" , "_" ]
     white_space = ' '
@@ -354,7 +355,7 @@ def lexer(string):
                 if string[i+1] == white_space or string[i+1] in symbols or (lexeme in KEYWORDS and string[i+1] not in valid): # if next char == ' '
                     if lexeme != '':
                         if (len(lex) != 0):
-                            if ((lex[-1] not in symbols) and (lex[-1] not in KEYWORDS)  and (lexeme not in symbols)  and (lexeme not in KEYWORDS)  ) :
+                            if ((lex[-1] not in symbols) and (lex[-1] not in KEYWORDS)  and (lexeme not in symbols)  and (lexeme not in KEYWORDS)  and not(isInt(lexeme)) and not(isInt(lex[-1]))) :
                                 lexeme = lex [-1] + " " + lexeme
                                 del lex[-1]
                         lex.append(lexeme)

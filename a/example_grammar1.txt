@@ -81,7 +81,7 @@ Sign -> Var SamD
 #List
 List -> Sbuka Stutup
 List -> Sbuka Content
-Content -> Any Stutup
+Content -> MAny Stutup
 
 Var -> any
 Any -> any
@@ -104,19 +104,27 @@ Opu -> +
 Opu -> -
 Opu -> /
 Opu -> *
-Opu -> //
-Opu -> **
+Opu -> Slash Slash
+Opu -> Multiply Multiply
 Opu -> %
+Slash -> /
+Multiply -> *
 
 #boolean
 Bool -> Bol Int
 Bool -> Bol Var
 Bool -> AON Bool
 Bool -> AON Var
+Bool -> InBol Var
+Bool -> InBol Int
 Bol -> Int Eq
 Bol -> Var Eq
 AON -> not
 AON -> Bool AO
+InBol -> Var In
+InBol -> Int In
+InBol -> String In
+
 
 #kondisioal
 Cab -> Else TD
@@ -177,6 +185,7 @@ HA -> Buka HB
 HB -> Method Tutup
 HB -> Var Tutup
 HB -> String Tutup
+HB -> MAny Tutup
 #Multi Any
 
 WITH -> GA TD
@@ -184,8 +193,6 @@ GA -> GB Var
 GB -> GC As
 GC -> With MAny
 # TODO
-#with sama gabung gabung gitu belum
-#baca file per line
 #rapihin program biar ga keliatan ngopas
 
 
