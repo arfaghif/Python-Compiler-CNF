@@ -1,10 +1,10 @@
 #usage: pyhton3 example.py
 
-from CYK_Paser import Grammar
+from Cyk_nyoba import Grammar
 
 g = Grammar('example_grammar1.txt')
 
-with open("input.txt",'r') as file:
+with open("input3.txt",'r') as file:
     data = file.read()
     g.parse(data)
 

@@ -1,167 +1,75 @@
-### Author
-'''
-Iker García Ferrero
-Github: https://github.com/ikergarcia1996
-'''
-# Example Of Use
- 
-'''
-# Initialize the grammar and read the rules from a file
-g = Grammar('example_grammar1.txt')
-
-# Parse a sentence
-g.parse('astronomers saw stars with ears')
-
-# Print the table used for parsing the sentence
-g.print_parse_table()
-
-# Get the list of trees generated for the sentence
-trees = g.get_trees()
-
-# Get the result of the production rule, VP, S, NP... 
-p = trees[0].get_type
-
-# Get the left child of the production rule
-l = trees[0].get_left
-
-# Get the right child of the production rule
-d = trees[0].get_right
-'''
-
- ## Expected output
-
- 
-'''
-Grammar file readed succesfully. Rules readed:
-S --> NP VP
-PP --> P NP
-VP --> V NP
-VP --> VP PP
-NP --> NP PP
-NP --> astronomers
-NP --> ears
-NP --> saw
-V --> saw
-NP --> telescope
-NP --> stars
-P --> with
-
-Applied Rule: VP[2,2] --> V[1,2] NP[1,3]
-Applied Rule: PP[2,4] --> P[1,4] NP[1,5]
-Applied Rule: S[3,1] --> NP[1,1] VP[2,2]
-Applied Rule: NP[3,3] --> NP[1,3] PP[2,4]
-Applied Rule: VP[4,2] --> V[1,2] NP[3,3]
-Applied Rule: VP[4,2] --> VP[2,2] PP[2,4]
-Applied Rule: S[5,1] --> NP[1,1] VP[4,2]
-Applied Rule: S[5,1] --> NP[1,1] VP[4,2]
-----------------------------------------
-The sentence IS accepted in the language
-Number of possible trees: 2
-----------------------------------------
-
------------  ------------  ------  ------  ------
-['S', 'S']
-[]           ['VP', 'VP']
-['S']        []            ['NP']
-[]           ['VP']        []      ['PP']
-['NP']       ['NP', 'V']   ['NP']  ['P']   ['NP']
-astronomers  saw           stars   with    ears
------------  ------------  ------  ------  ------
-'''
-
-
-# Example of grammar file
-'''
-S -> NP VP
-PP -> P NP
-VP -> V NP
-VP -> VP PP
-NP-> NP PP
-NP -> astronomers
-NP -> ears
-NP -> saw
-NP-> telescope
-NP -> stars
-P -> with
-V -> saw
-'''
-
 import keyword
 
-class Dictlist(dict):
+class ListBahasa(dict):
     
     def __setitem__(self, key, value):
-        
         try:
             self[key]
         except KeyError:
-            super(Dictlist, self).__setitem__(key, [])
+            super(ListBahasa, self).__setitem__(key, [])
         self[key].append(value)
 
 
-class production_rule(object):
+class rules(object):
     
     result = None
-    p1 = None
-    p2 = None
+    leftPro = None
+    rightPro = None
     
     #Parameters:
     #   Result: String
-    #   p1: Production rule (left child of the production rule)
-    #   p2: Production rule (right child of the production rule)
-    def __init__(self,result,p1,p2):
+    #   leftPro: Production rule (left child of the production rule)
+    #   rightPro: Production rule (right child of the production rule)
+    def __init__(self,result,leftPro,rightPro):
         self.result = result
-        self.p1 = p1
-        self.p2 = p2
+        self.leftPro = leftPro
+        self.rightPro = rightPro
     
     #Returns the result of the production rule, VP, S, NP... 
-    @property
-    def get_type(self):
+    def tipe(self):
         return self.result
     
     #Returns the left child of the production rule
-    @property
-    def get_left(self):
-        return self.p1
+    def kiri(self):
+        return self.leftPro
     
     #Returns the right child of the production rule
-    @property
-    def get_right(self):
-        return self.p2
+    def kanan(self):
+        return self.rightPro
 
 class Cell(object):
-    productions = []
+    listPR = []
     
     
     #Parameters:
     #   Productions: List of production rules
     
-    def __init__(self, productions=None):
-        if productions is None:
-            self.productions = []
+    def __init__(self, listPR=None):
+        if listPR is None:
+            self.listPR = []
         else:
-            self.productions = productions
+            self.listPR = listPR
             
-    def add_production(self, result,p1,p2):
-        self.productions.append(production_rule(result,p1,p2))
+    def appendProduksi(self, result,leftPro,rightPro):
+        self.listPR.append(rules(result,leftPro,rightPro))
     
-    def set_productions(self, p):
-        self.productions = p
+    def konfProduksi(self, p):
+        self.listPR = p
     
     @property
-    def get_types(self):
+    def tipe(self):
         types = []
-        for p in self.productions:
+        for p in self.listPR:
             types.append(p.result)
         return types
     @property
     def get_rules(self):       
-        return self.productions
+        return self.listPR
 
 
 class Grammar(object):
     
-    grammar_rules = Dictlist()
+    grammar_rules = ListBahasa()
     parse_table = None
     length = 0
     tokens = []
@@ -172,7 +80,7 @@ class Grammar(object):
     #   Filename: file containing a grammar
     
     def __init__(self, filename):
-        self.grammar_rules = Dictlist()
+        self.grammar_rules = ListBahasa()
         self.parse_table = None
         self.length = 0
         self.start = []
@@ -223,17 +131,17 @@ class Grammar(object):
             #Process the first line
             for x, t in enumerate(self.tokens):
                 r = self.apply_rules(t)
-                self.parse_table[0][x].add_production("MAny",production_rule(t,None,None),None)
+                self.parse_table[0][x].appendProduksi("MAny",rules(t,None,None),None)
                 if len(t.split())==1 :
-                    self.parse_table[0][x].add_production("Any",production_rule(t,None,None),None)
+                    self.parse_table[0][x].appendProduksi("Any",rules(t,None,None),None)
                 if isVar(t) :
-                    self.parse_table[0][x].add_production("Var",production_rule(t,None,None),None)
+                    self.parse_table[0][x].appendProduksi("Var",rules(t,None,None),None)
                 if isInt(t):
-                    self.parse_table[0][x].add_production("Int",production_rule(t,None,None),None)
-                    self.parse_table[0][x].add_production("Bool",production_rule(t,None,None),None)
+                    self.parse_table[0][x].appendProduksi("Int",rules(t,None,None),None)
+                    self.parse_table[0][x].appendProduksi("Bool",rules(t,None,None),None)
                 if r != None:
                     for w in r: 
-                        self.parse_table[0][x].add_production(w,production_rule(t,None,None),None)
+                        self.parse_table[0][x].appendProduksi(w,rules(t,None,None),None)
             
             
             #Run CYK-Parser
@@ -241,22 +149,21 @@ class Grammar(object):
             
             for l in range(2,self.length+1):
                 for s in range(1,self.length-l+2):
-                    self.parse_table[l-1][s-1].add_production("MAny",None,None)
+                    self.parse_table[l-1][s-1].appendProduksi("MAny",None,None)
                     for p in range(1,l-1+1):
                         t1 = self.parse_table[p-1][s-1].get_rules
                         t2 = self.parse_table[l-p-1][s+p-1].get_rules
-                                
                         for a in t1:
                             for b in t2:
                                 #print(a,b,r)
-                                r = self.apply_rules(str(a.get_type) + " " + str(b.get_type))
+                                r = self.apply_rules(str(a.tipe) + " " + str(b.tipe))
                                 if r is not None:
                                     for w in r:
-                                        #print('Applied Rule: ' + str(w) + '[' + str(l) + ',' + str(s) + ']' + ' --> ' + str(a.get_type) + '[' + str(p) + ',' + str(s) + ']' + ' ' + str(b.get_type)+ '[' + str(l-p) + ',' + str(s+p) + ']')
-                                        self.parse_table[l-1][s-1].add_production(w,a,b)
+                                        #print('Applied Rule: ' + str(w) + '[' + str(l) + ',' + str(s) + ']' + ' --> ' + str(a.tipe) + '[' + str(p) + ',' + str(s) + ']' + ' ' + str(b.tipe)+ '[' + str(l-p) + ',' + str(s+p) + ']')
+                                        self.parse_table[l-1][s-1].appendProduksi(w,a,b)
                                 
-            self.number_of_trees = len(self.parse_table[self.length-1][0].get_types)
-            if   (isanysame(self.parse_table[self.length-1][0].get_types,self.start)) :
+            self.number_of_trees = len(self.parse_table[self.length-1][0].tipe)
+            if   (isanysame(self.parse_table[self.length-1][0].tipe,self.start)) :
                 print("----------------------------------------")
                 print('The sentence IS accepted in the language')
                 print('Number of possible trees: ' + str(self.number_of_trees))
@@ -274,7 +181,7 @@ class Grammar(object):
         
     #Returns a list containing the parent of the possible trees that we can generate for the last sentence that have been parsed
     def get_trees(self):
-        return self.parse_table[self.length-1][0].productions
+        return self.parse_table[self.length-1][0].listPR
                 
                 
     #@TODO
@@ -309,7 +216,7 @@ class Grammar(object):
         for row in reversed(self.parse_table):
             l = []
             for cell in row:
-                l.append(cell.get_types)
+                l.append(cell.tipe)
             lines.append(l)
         
         lines.append(self.tokens)

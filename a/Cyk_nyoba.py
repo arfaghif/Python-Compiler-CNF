@@ -18,13 +18,15 @@ class rules(object):
         self.result = result
         self.leftPro = leftPro
         self.rightPro = rightPro
-
+    @property
     def tipe(self):
         return self.result
 
+    @property
     def kiri(self):
         return self.leftPro
 
+    @property
     def kanan(self):
         return self.rightPro
 
@@ -40,15 +42,17 @@ class Cell(object):
     def appendProduksi(self, result,leftPro,rightPro):
         self.listPR.append(rules(result,leftPro,rightPro))
     
-    def konfProduksis(self, p):
+    def konfProduksi(self, p):
         self.listPR = p
     
+    @property
     def tipes(self):
         types = []
         for p in self.listPR:
             types.append(p.result)
         return types
 
+    @property
     def getRules(self):       
         return self.listPR
 
