@@ -75,7 +75,7 @@ Assign -> Sign List
 Assign -> Sign String
 Assign -> Sign Op
 Assign -> Sign Method
-Assign -> Op
+Assign -> Sign Var
 Sign -> Var SamD
 
 #List
