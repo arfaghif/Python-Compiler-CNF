@@ -86,11 +86,12 @@ P -> with
 V -> saw
 '''
 
-
+import keyword
 
 class Dictlist(dict):
     
     def __setitem__(self, key, value):
+        
         try:
             self[key]
         except KeyError:
@@ -203,6 +204,7 @@ class Grammar(object):
         """
     def apply_rules(self,t):
         try:
+            print(self.grammar_rules[t])
             return self.grammar_rules[t]
         except KeyError as r:
             return None
@@ -210,7 +212,7 @@ class Grammar(object):
     #Parse a sentence (string) with the CYK algorithm   
     def parse(self,sentence):
         self.number_of_trees = 0
-        self.tokens = sentence.split()
+        self.tokens = lexer(sentence.replace("True", "1").replace("False", "1").replace("None", "1"))
         self.length = len(self.tokens)
         if self.length < 1:
             raise ValueError("The sentence could no be read")
@@ -219,11 +221,17 @@ class Grammar(object):
          #Process the first line
         
         for x, t in enumerate(self.tokens):
+            print(t)
+            
             
             r = self.apply_rules(t)
-            if r == None:
-                raise ValueError("The word " + str(t) + " is not in the grammar")
-            else:
+            self.parse_table[0][x].add_production("Any",production_rule(t,None,None),None)
+            if isVar(t) :
+                self.parse_table[0][x].add_production("Var",production_rule(t,None,None),None)
+            if isInt(t):
+                self.parse_table[0][x].add_production("Int",production_rule(t,None,None),None)
+                self.parse_table[0][x].add_production("Bool",production_rule(t,None,None),None)
+            if r != None:
                 for w in r: 
                     self.parse_table[0][x].add_production(w,production_rule(t,None,None),None)
         
@@ -241,14 +249,13 @@ class Grammar(object):
                     for a in t1:
                         for b in t2:
                             r = self.apply_rules(str(a.get_type) + " " + str(b.get_type))
-                                    
+                               
                             if r is not None:
                                 for w in r:
                                     print('Applied Rule: ' + str(w) + '[' + str(l) + ',' + str(s) + ']' + ' --> ' + str(a.get_type) + '[' + str(p) + ',' + str(s) + ']' + ' ' + str(b.get_type)+ '[' + str(l-p) + ',' + str(s+p) + ']')
                                     self.parse_table[l-1][s-1].add_production(w,a,b)
                                
         self.number_of_trees = len(self.parse_table[self.length-1][0].get_types)
-        print(self.start)
         if   (isanysame(self.parse_table[self.length-1][0].get_types,self.start)) :
             print("----------------------------------------")
             print('The sentence IS accepted in the language')
@@ -311,3 +318,42 @@ def isanysame(L1, L2):
         if i in L2:
             return True
     return False
+
+def isVar(r):
+    if r not in keyword.kwlist :
+        if ((ord(r[0]) in range (65, 91)) or (ord(r[0]) in range (97, 123)) or (ord(r[0])==95)) :
+            for i in r :
+                if not (((ord(r[0]) in range (65, 91)) or (ord(r[0]) in range (97, 123)) or (ord(r[0])==95) or (ord(r[0]) in range (48, 58)))) :
+                    return False
+            return True
+    return False
+
+def isInt(t):
+    for i in t :
+        if not(ord(i) in range (48,58)):
+            return False
+    return True
+
+
+def lexer(string):
+    symbols = ['{', '}', '(', ')', '[', ']', '.', '"', '*', '\n', ':', ','] # single-char keywords
+    other_symbols = ['#'] # multi-char keywords
+    KEYWORDS =keyword.kwlist
+
+
+    white_space = ' '
+    lexeme = ''
+    lex =[]
+    for i,char in enumerate(string):
+        if string[i] in symbols :
+            lex.append(char)
+        else :
+            if char != white_space:
+                lexeme += char # adding a char each time
+            if (i+1 < len(string)): # prevents error
+                if string[i+1] == white_space or string[i+1] in symbols or lexeme in KEYWORDS: # if next char == ' '
+                    if lexeme != '':
+                        lex.append(lexeme)
+                        lexeme = ''
+    return lex
+

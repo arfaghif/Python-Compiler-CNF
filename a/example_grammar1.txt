@@ -1,8 +1,22 @@
+#Kumpulan accept
+#Jadi S itu pake dollar dollar gini. Kenapa? biar bisa satu variabel doang kwkwkw
 $ -> Char
 $ -> Assign
 $ -> Bool
-$ -> Int 
-#Kumpulan accept
+$ -> Int
+$ -> Cab
+$ -> FL
+$ -> WL
+$ -> D
+$ -> IM
+$ -> IMA
+$ -> C
+$ -> R
+$ -> Break
+$ -> Continue
+$ -> Return
+$ -> Pass
+
 
 
 
@@ -104,17 +118,7 @@ Char -> |
 Char -> }
 Char -> ~
 
-#Kumpulan integer
-Int -> 0
-Int -> 1
-Int -> 2
-Int -> 3
-Int -> 4
-Int -> 5
-Int -> 6
-Int -> 7
-Int -> 8
-Int -> 9
+
 
 #kumpulan operator boolean
 Eq -> >
@@ -123,6 +127,7 @@ Eq -> <
 Eq -> <=
 Eq -> ==
 Eq -> !=
+Eq -> is
 
 #kumpulan keyword
 AO -> and
@@ -146,53 +151,101 @@ Raise -> raise
 Return -> return
 While -> while
 With -> with
+Range -> range
 
 Assign -> Sign Int
 Assign -> Sign List
 Assign -> Sign Char
 Assign -> Sign Op
 Assign -> Op
-Sign -> Var =
+Sign -> Var SamD
 
 #List
-List -> [ ]
-List -> [ Lo
-Lo -> any ]
+List -> Sbuka Stutup
+List -> Sbuka Content
+Content -> Any Stutup
 
 Var -> any
 Any -> any
 
+#simbol kepake
+SamD -> =
+TD -> :
+Sbuka -> [
+Stutup -> ]
+Buka -> (
+Tutup -> )
+Petik -> "
+
+
 #Operator
 Op -> Opi Int
-Opi -> Int +
-Opi -> Int -
-Opi -> Int /
-Opi -> Int *
-Opi -> Int //
-Opi -> Int **
-Opi -> Int %
-Opi -> Op +
-Opi -> Op -
-Opi -> Op /
-Opi -> Op *
-Opi -> Op //
-Opi -> Op **
-Opi -> Op %
+Opi -> Int Opu
+Opi -> Op Opu
+Opu -> +
+Opu -> -
+Opu -> /
+Opu -> *
+Opu -> //
+Opu -> **
+Opu -> %
 
 #boolean
-Bool -> 0
-Bool -> 1
-Bool -> 2
-Bool -> 3
-Bool -> 4
-Bool -> 5
-Bool -> 6
-Bool -> 7
-Bool -> 8
-Bool -> 9
 Bool -> Bol Int
 Bool -> AON Bool
 Bol -> Int Eq
 AON -> not
 AON -> Bool AO
 
+#kondisioal
+Cab -> Else TD
+Cab -> Cond TD
+Cond -> IF Bool
+Cond -> Elif Bool
+
+#while
+WL -> Ulang TD
+Ulang -> While Bool
+
+#For 
+FL -> AB TD
+AB -> AC Tutup
+AC -> AD Int
+AD -> AE Buka
+AE -> AF Range
+AF -> AG In
+AG -> For Var
+
+#Def
+D -> Def TD
+D -> BA TD
+BA -> BB Tutup
+BB -> BC Content
+BC -> Def Buka
+
+#Class
+C -> Class TD
+C -> BA TD
+BC -> Class Buka
+
+#import
+IM -> Import Any
+IMA -> CA Any
+CA -> IM As
+IM -> From CB
+CB -> Any IM
+
+#Raise
+R -> DA Tutup
+DA -> DB Petik
+DB -> DC Any
+DC -> DD Petik
+DD -> DE Buka
+DE -> Raise Any
+
+
+# TODO
+#with sama gabung gabung gitu
+#baca file per line
+#rapihin program biar ga keliatan ngopas
+#Ngubah kata ga dikenal jadi "any"
