@@ -1,6 +1,6 @@
 #Kumpulan accept
 #Jadi S itu pake dollar dollar gini. Kenapa? biar bisa satu variabel doang kwkwkw
-$ -> Char
+$ -> String
 $ -> Assign
 $ -> Bool
 $ -> Int
@@ -22,101 +22,12 @@ $ -> Pass
 
 #Transisi
 
-#Kumpulan char
-Char -> !
-Char -> "
-Char -> #
-Char -> $
-Char -> %
-Char -> &
-Char -> '
-Char -> (
-Char -> )
-Char -> *
-Char -> +
-Char -> ,
-Char -> -
-Char -> .
-Char -> /
-Char -> 0
-Char -> 1
-Char -> 2
-Char -> 3
-Char -> 4
-Char -> 5
-Char -> 6
-Char -> 7
-Char -> 8
-Char -> 9
-Char -> :
-Char -> ;
-Char -> <
-Char -> =
-Char -> >
-Char -> ?
-Char -> @
-Char -> A
-Char -> B
-Char -> C
-Char -> D
-Char -> E
-Char -> F
-Char -> G
-Char -> H
-Char -> I
-Char -> J
-Char -> K
-Char -> L
-Char -> M
-Char -> N
-Char -> O
-Char -> P
-Char -> Q
-Char -> R
-Char -> S
-Char -> T
-Char -> U
-Char -> V
-Char -> W
-Char -> X
-Char -> Y
-Char -> Z
-Char -> [
-Char -> \
-Char -> ]
-Char -> ^
-Char -> _
-Char -> `
-Char -> a
-Char -> b
-Char -> c
-Char -> d
-Char -> e
-Char -> f
-Char -> g
-Char -> h
-Char -> i
-Char -> j
-Char -> k
-Char -> l
-Char -> m
-Char -> n
-Char -> o
-Char -> p
-Char -> q
-Char -> r
-Char -> s
-Char -> t
-Char -> u
-Char -> v
-Char -> w
-Char -> x
-Char -> y
-Char -> z
-Char -> {
-Char -> |
-Char -> }
-Char -> ~
+#Kumpulan String
+String -> EA Petik
+EA -> Petik Any
+String -> EB Kutip
+EB -> Kutip MAny
+
 
 
 
@@ -155,7 +66,7 @@ Range -> range
 
 Assign -> Sign Int
 Assign -> Sign List
-Assign -> Sign Char
+Assign -> Sign String
 Assign -> Sign Op
 Assign -> Op
 Sign -> Var SamD
@@ -176,7 +87,7 @@ Stutup -> ]
 Buka -> (
 Tutup -> )
 Petik -> "
-
+Kutip -> '
 
 #Operator
 Op -> Opi Int
@@ -244,8 +155,22 @@ DD -> DE Buka
 DE -> Raise Any
 
 
+#tuple
+Tup -> Buka Tutup
+Tup -> FA Tutup
+FA -> Buka Any
+
+#Method
+Method -> Any Tup
+
+#Multi Any
+
+
 # TODO
-#with sama gabung gabung gitu
+#with sama gabung gabung gitu belum
 #baca file per line
 #rapihin program biar ga keliatan ngopas
-#Ngubah kata ga dikenal jadi "any"
+
+
+#Variabel belum kepake
+#2 huruf abjad mulai FB

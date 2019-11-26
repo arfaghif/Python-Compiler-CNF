@@ -204,7 +204,7 @@ class Grammar(object):
         """
     def apply_rules(self,t):
         try:
-            print(self.grammar_rules[t])
+            #print(self.grammar_rules[t])
             return self.grammar_rules[t]
         except KeyError as r:
             return None
@@ -219,13 +219,11 @@ class Grammar(object):
         self.parse_table = [ [Cell() for x in range(self.length - y)] for y in range(self.length) ]
         
          #Process the first line
-        
         for x, t in enumerate(self.tokens):
-            print(t)
-            
-            
             r = self.apply_rules(t)
-            self.parse_table[0][x].add_production("Any",production_rule(t,None,None),None)
+            self.parse_table[0][x].add_production("MAny",production_rule(t,None,None),None)
+            if len(t.split())==1 :
+                self.parse_table[0][x].add_production("Any",production_rule(t,None,None),None)
             if isVar(t) :
                 self.parse_table[0][x].add_production("Var",production_rule(t,None,None),None)
             if isInt(t):
@@ -241,18 +239,18 @@ class Grammar(object):
         
         for l in range(2,self.length+1):
             for s in range(1,self.length-l+2):
+                self.parse_table[l-1][s-1].add_production("MAny",None,None)
                 for p in range(1,l-1+1):
-                    
                     t1 = self.parse_table[p-1][s-1].get_rules
                     t2 = self.parse_table[l-p-1][s+p-1].get_rules
                             
                     for a in t1:
                         for b in t2:
+                            #print(a,b,r)
                             r = self.apply_rules(str(a.get_type) + " " + str(b.get_type))
-                               
                             if r is not None:
                                 for w in r:
-                                    print('Applied Rule: ' + str(w) + '[' + str(l) + ',' + str(s) + ']' + ' --> ' + str(a.get_type) + '[' + str(p) + ',' + str(s) + ']' + ' ' + str(b.get_type)+ '[' + str(l-p) + ',' + str(s+p) + ']')
+                                    #print('Applied Rule: ' + str(w) + '[' + str(l) + ',' + str(s) + ']' + ' --> ' + str(a.get_type) + '[' + str(p) + ',' + str(s) + ']' + ' ' + str(b.get_type)+ '[' + str(l-p) + ',' + str(s+p) + ']')
                                     self.parse_table[l-1][s-1].add_production(w,a,b)
                                
         self.number_of_trees = len(self.parse_table[self.length-1][0].get_types)
@@ -336,10 +334,10 @@ def isInt(t):
 
 
 def lexer(string):
-    symbols = ['{', '}', '(', ')', '[', ']', '.', '"', '*', '\n', ':', ','] # single-char keywords
+    symbols = ['{', '}', '(', ')', '[', ']',  '"', '*', ':', ',',"'",'"', '='] # single-char keywords
     other_symbols = ['#'] # multi-char keywords
     KEYWORDS =keyword.kwlist
-
+    skip = ["\n","","\t"]
 
     white_space = ' '
     lexeme = ''
@@ -347,13 +345,26 @@ def lexer(string):
     for i,char in enumerate(string):
         if string[i] in symbols :
             lex.append(char)
+        elif string[i] in skip :
+            continue
         else :
             if char != white_space:
                 lexeme += char # adding a char each time
             if (i+1 < len(string)): # prevents error
                 if string[i+1] == white_space or string[i+1] in symbols or lexeme in KEYWORDS: # if next char == ' '
                     if lexeme != '':
+                        if (len(lex) != 0):
+                            if ((lex[-1] not in symbols) and (lex[-1] not in KEYWORDS)  and (lexeme not in symbols)  and (lexeme not in KEYWORDS)  ) :
+                                lexeme = lex [-1] + " " + lexeme
+                                del lex[-1]
                         lex.append(lexeme)
                         lexeme = ''
+    if lexeme not in skip :
+        if (len(lex) != 0):
+            if (lex[-1] not in symbols and lex[-1] not in KEYWORDS  and lexeme not in symbols  and lexeme not in KEYWORDS  ) :
+                lexeme = lex [-1] + " " + lexeme
+                del lex[-1]
+        lex.append(lexeme)
+    print(lex)
     return lex
 

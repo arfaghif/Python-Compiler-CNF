@@ -3,8 +3,23 @@
 from CYK_Paser import Grammar
 
 g = Grammar('example_grammar1.txt')
-g.parse("for dscsdc in range (5):")
-g.print_parse_table()
+file = open("input.txt")
+i=1
+
+for line in  file :
+    print("HASIL BARIS KE" ,i)
+    if (line == "") :
+        print("ACCEPTED")
+    else :
+        g.parse(line)
+        if (i==6) :
+            #pass
+            g.print_parse_table()
+    i += 1
+
+
+"""g.parse("from PIL import Image")
+g.print_parse_table()"""
 
 print('')
 print('')

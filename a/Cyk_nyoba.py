@@ -1,3 +1,76 @@
+import keyword
+
+class Dictlist(dict):
+    
+    def __setitem__(self, key, value):
+        
+        try:
+            self[key]
+        except KeyError:
+            super(Dictlist, self).__setitem__(key, [])
+        self[key].append(value)
+
+
+class production_rule(object):
+    
+    result = None
+    p1 = None
+    p2 = None
+    
+    #Parameters:
+    #   Result: String
+    #   p1: Production rule (left child of the production rule)
+    #   p2: Production rule (right child of the production rule)
+    def __init__(self,result,p1,p2):
+        self.result = result
+        self.p1 = p1
+        self.p2 = p2
+    
+    #Returns the result of the production rule, VP, S, NP... 
+    @property
+    def get_type(self):
+        return self.result
+    
+    #Returns the left child of the production rule
+    @property
+    def get_left(self):
+        return self.p1
+    
+    #Returns the right child of the production rule
+    @property
+    def get_right(self):
+        return self.p2
+
+class Cell(object):
+    productions = []
+    
+    
+    #Parameters:
+    #   Productions: List of production rules
+    
+    def __init__(self, productions=None):
+        if productions is None:
+            self.productions = []
+        else:
+            self.productions = productions
+            
+    def add_production(self, result,p1,p2):
+        self.productions.append(production_rule(result,p1,p2))
+    
+    def set_productions(self, p):
+        self.productions = p
+    
+    @property
+    def get_types(self):
+        types = []
+        for p in self.productions:
+            types.append(p.result)
+        return types
+    @property
+    def get_rules(self):       
+        return self.productions
+
+
 class Grammar(object):
     
     grammar_rules = Dictlist()
@@ -35,9 +108,15 @@ class Grammar(object):
     #Print the production rules in the grammar
     def print_rules(self):
         pass
-
+    """
+    def print_rules(self):
+        for r in self.grammar_rules:
+            for p in self.grammar_rules[r]:
+                print(str(p) + ' --> ' + str(r))
+        """
     def apply_rules(self,t):
         try:
+            print(self.grammar_rules[t])
             return self.grammar_rules[t]
         except KeyError as r:
             return None
@@ -45,7 +124,7 @@ class Grammar(object):
     #Parse a sentence (string) with the CYK algorithm   
     def parse(self,sentence):
         self.number_of_trees = 0
-        self.tokens = sentence.split()
+        self.tokens = lexer(sentence.replace("True", "1").replace("False", "1").replace("None", "1"))
         self.length = len(self.tokens)
         if self.length < 1:
             raise ValueError("The sentence could no be read")
@@ -54,11 +133,17 @@ class Grammar(object):
          #Process the first line
         
         for x, t in enumerate(self.tokens):
+            print(t)
+            
             
             r = self.apply_rules(t)
-            if r == None:
-                self.parse_table[0][x].append('Any')
-            else:
+            self.parse_table[0][x].add_production("Any",production_rule(t,None,None),None)
+            if isVar(t) :
+                self.parse_table[0][x].add_production("Var",production_rule(t,None,None),None)
+            if isInt(t):
+                self.parse_table[0][x].add_production("Int",production_rule(t,None,None),None)
+                self.parse_table[0][x].add_production("Bool",production_rule(t,None,None),None)
+            if r != None:
                 for w in r: 
                     self.parse_table[0][x].add_production(w,production_rule(t,None,None),None)
         
@@ -76,7 +161,7 @@ class Grammar(object):
                     for a in t1:
                         for b in t2:
                             r = self.apply_rules(str(a.get_type) + " " + str(b.get_type))
-                                    
+                               
                             if r is not None:
                                 for w in r:
                                     print('Applied Rule: ' + str(w) + '[' + str(l) + ',' + str(s) + ']' + ' --> ' + str(a.get_type) + '[' + str(p) + ',' + str(s) + ']' + ' ' + str(b.get_type)+ '[' + str(l-p) + ',' + str(s+p) + ']')
@@ -93,79 +178,97 @@ class Grammar(object):
             print("--------------------------------------------")
             print('The sentence IS NOT accepted in the language')
             print("--------------------------------------------")
-
-
-
-class Dictlist(dict):
-    
-    def __setitem__(self, key, value):
+        
+        
+    #Returns a list containing the parent of the possible trees that we can generate for the last sentence that have been parsed
+    def get_trees(self):
+        return self.parse_table[self.length-1][0].productions
+                
+                
+    #@TODO
+    def print_trees(self):
+        pass
+                      
+    #Print the CYK parse trable for the last sentence that have been parsed.             
+    def print_parse_table(self):
+        
+        
         try:
-            self[key]
-        except KeyError:
-            super(Dictlist, self).__setitem__(key, [])
-        self[key].append(value)
+            from tabulate import tabulate
+        except (ModuleNotFoundError,ImportError) as r:
+            import subprocess
+            import sys
+            import logging
+            logging.warning('To print the CYK parser table the Tabulate module is necessary, trying to install it...')
+            subprocess.call([sys.executable, "-m", "pip", "install", 'tabulate'])
+
+            try:
+                from tabulate import tabulate
+                logging.warning('The tabulate module has been instaled succesfuly!')
+
+            except (ModuleNotFoundError,ImportError) as r:
+                logging.warning('Unable to install the tabulate module, please run the command \'pip install tabulate\' in a command line')
+
+        
+        lines = [] 
+        
+        
+        
+        for row in reversed(self.parse_table):
+            l = []
+            for cell in row:
+                l.append(cell.get_types)
+            lines.append(l)
+        
+        lines.append(self.tokens)
+        print('')
+        print(tabulate(lines))
+        print('')
+    
+def isanysame(L1, L2):
+    for i in L1:
+        if i in L2:
+            return True
+    return False
+
+def isVar(r):
+    if r not in keyword.kwlist :
+        if ((ord(r[0]) in range (65, 91)) or (ord(r[0]) in range (97, 123)) or (ord(r[0])==95)) :
+            for i in r :
+                if not (((ord(r[0]) in range (65, 91)) or (ord(r[0]) in range (97, 123)) or (ord(r[0])==95) or (ord(r[0]) in range (48, 58)))) :
+                    return False
+            return True
+    return False
+
+def isInt(t):
+    for i in t :
+        if not(ord(i) in range (48,58)):
+            return False
+    return True
 
 
+def lexer(string):
+    symbols = ['{', '}', '(', ')', '[', ']', '.', '"', '*', '\n', ':', ','] # single-char keywords
+    other_symbols = ['#'] # multi-char keywords
+    KEYWORDS =keyword.kwlist
+    
 
+    white_space = ' '
+    lexeme = ''
+    lex =[]
+    for i,char in enumerate(string):
+        if string[i] in symbols :
+            lex.append(char)
+        elif string[i] in skip :
+            continue
+        else :
+            if char != white_space:
+                lexeme += char # adding a char each time
+            if (i+1 < len(string)): # prevents error
+                if string[i+1] == white_space or string[i+1] in symbols or lexeme in KEYWORDS: # if next char == ' '
+                    if lexeme != '':
+                        lex.append(lexeme)
+                        lexeme = ''
+    
+    return lex
 
-
-class production_rule(object):
-    
-    result = None
-    p1 = None
-    p2 = None
-    
-    #Parameters:
-    #   Result: String
-    #   p1: Production rule (left child of the production rule)
-    #   p2: Production rule (right child of the production rule)
-    def __init__(self,result,p1,p2):
-        self.result = result
-        self.p1 = p1
-        self.p2 = p2
-    
-    #Returns the result of the production rule, VP, S, NP... 
-    @property
-    def get_type(self):
-        return self.result
-    
-    #Returns the left child of the production rule
-    @property
-    def get_left(self):
-        return self.p1
-    
-    #Returns the right child of the production rule
-    @property
-    def get_right(self):
-        return self.p2
-
-
-
-class Cell(object):
-    productions = []
-    
-    
-    #Parameters:
-    #   Productions: List of production rules
-    
-    def __init__(self, productions=None):
-        if productions is None:
-            self.productions = []
-        else:
-            self.productions = productions
-            
-    def add_production(self, result,p1,p2):
-        self.productions.append(production_rule(result,p1,p2))
-    
-    def set_productions(self, p):
-        self.productions = p
-    
-    @property
-    def get_types(self):
-        types = []
-        for p in self.productions:
-            types.append(p.result)
-        return types
-    @property
-    def get_rules(self):       
-        return self.productions
