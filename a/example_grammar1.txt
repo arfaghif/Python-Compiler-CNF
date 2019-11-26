@@ -16,7 +16,8 @@ $ -> C
 $ -> R
 $ -> WITH
 $ -> Method
-
+$ -> Kom
+$ -> Panah
 $ -> Break
 $ -> Continue
 $ -> Return
@@ -40,6 +41,8 @@ S -> S Return
 S -> S Pass
 S -> S Method
 S -> S WITH
+S -> S Panah
+S -> S Kom
 
 S -> Assign Assign
 S -> Cab Assign
@@ -56,6 +59,8 @@ S -> Return Assign
 S -> Pass Assign
 S -> Method Assign
 S -> WITH Assign
+S -> Panah Assign
+S -> Kom Assign
 S -> Assign Cab
 S -> Cab Cab
 S -> FL Cab
@@ -71,6 +76,8 @@ S -> Return Cab
 S -> Pass Cab
 S -> Method Cab
 S -> WITH Cab
+S -> Panah Cab
+S -> Kom Cab
 S -> Assign FL
 S -> Cab FL
 S -> FL FL
@@ -86,6 +93,8 @@ S -> Return FL
 S -> Pass FL
 S -> Method FL
 S -> WITH FL
+S -> Panah FL
+S -> Kom FL
 S -> Assign WL
 S -> Cab WL
 S -> FL WL
@@ -101,6 +110,8 @@ S -> Return WL
 S -> Pass WL
 S -> Method WL
 S -> WITH WL
+S -> Panah WL
+S -> Kom WL
 S -> Assign D
 S -> Cab D
 S -> FL D
@@ -116,6 +127,8 @@ S -> Return D
 S -> Pass D
 S -> Method D
 S -> WITH D
+S -> Panah D
+S -> Kom D
 S -> Assign IM
 S -> Cab IM
 S -> FL IM
@@ -131,6 +144,8 @@ S -> Return IM
 S -> Pass IM
 S -> Method IM
 S -> WITH IM
+S -> Panah IM
+S -> Kom IM
 S -> Assign IMA
 S -> Cab IMA
 S -> FL IMA
@@ -146,6 +161,8 @@ S -> Return IMA
 S -> Pass IMA
 S -> Method IMA
 S -> WITH IMA
+S -> Panah IMA
+S -> Kom IMA
 S -> Assign C
 S -> Cab C
 S -> FL C
@@ -161,6 +178,8 @@ S -> Return C
 S -> Pass C
 S -> Method C
 S -> WITH C
+S -> Panah C
+S -> Kom C
 S -> Assign R
 S -> Cab R
 S -> FL R
@@ -176,6 +195,8 @@ S -> Return R
 S -> Pass R
 S -> Method R
 S -> WITH R
+S -> Panah R
+S -> Kom R
 S -> Assign Break
 S -> Cab Break
 S -> FL Break
@@ -191,6 +212,8 @@ S -> Return Break
 S -> Pass Break
 S -> Method Break
 S -> WITH Break
+S -> Panah Break
+S -> Kom Break
 S -> Assign Continue
 S -> Cab Continue
 S -> FL Continue
@@ -206,6 +229,8 @@ S -> Return Continue
 S -> Pass Continue
 S -> Method Continue
 S -> WITH Continue
+S -> Panah Continue
+S -> Kom Continue
 S -> Assign Return
 S -> Cab Return
 S -> FL Return
@@ -221,6 +246,8 @@ S -> Return Return
 S -> Pass Return
 S -> Method Return
 S -> WITH Return
+S -> Panah Return
+S -> Kom Return
 S -> Assign Pass
 S -> Cab Pass
 S -> FL Pass
@@ -236,6 +263,8 @@ S -> Return Pass
 S -> Pass Pass
 S -> Method Pass
 S -> WITH Pass
+S -> Panah Pass
+S -> Kom Pass
 S -> Assign Method
 S -> Cab Method
 S -> FL Method
@@ -251,6 +280,8 @@ S -> Return Method
 S -> Pass Method
 S -> Method Method
 S -> WITH Method
+S -> Panah Method
+S -> Kom Method
 S -> Assign WITH
 S -> Cab WITH
 S -> FL WITH
@@ -266,6 +297,42 @@ S -> Return WITH
 S -> Pass WITH
 S -> Method WITH
 S -> WITH WITH
+S -> Panah WITH
+S -> Kom WITH
+S -> Assign Panah
+S -> Cab Panah
+S -> FL Panah
+S -> WL Panah
+S -> D Panah
+S -> IM Panah
+S -> IMA Panah
+S -> C Panah
+S -> R Panah
+S -> Break Panah
+S -> Continue Panah
+S -> Return Panah
+S -> Pass Panah
+S -> Method Panah
+S -> WITH Panah
+S -> Panah Panah
+S -> Kom Panah
+S -> Assign Kom
+S -> Cab Kom
+S -> FL Kom
+S -> WL Kom
+S -> D Kom
+S -> IM Kom
+S -> IMA Kom
+S -> C Kom
+S -> R Kom
+S -> Break Kom
+S -> Continue Kom
+S -> Return Kom
+S -> Pass Kom
+S -> Method Kom
+S -> WITH Kom
+S -> Panah Kom
+S -> Kom Kom
 
 
 #Kumpulan String
@@ -273,8 +340,11 @@ String -> Kutip Kutip
 String -> Petik Petik
 String -> EA Petik
 String -> EB Kutip
+String -> EC Tutup
+EC -> Buka String
 EA -> Petik MAny
 EB -> Kutip MAny
+
 
 #kumpulan operator boolean
 Eq -> >
@@ -287,22 +357,37 @@ Eq -> Seru SamD
 
 #Assign
 Assign -> Sign Int
+Assign -> Sign Neg
 Assign -> Sign List
 Assign -> Sign String
 Assign -> Sign Op
 Assign -> Sign Method
 Assign -> Sign Var
-Assign -> Sign VarT
+Assign -> Sign OpL
+Assign -> Sign OpS
 Sign -> Var SamD
+Sign -> Asss =
+Asss -> Var Opu
+
 
 #List
 List -> Sbuka Stutup
 List -> Sbuka Content
+List -> EM Tutup
 Content -> MAny Stutup
+EM -> Buka List
 
 #Operator
 Op -> Opi Int
+Op -> Opi Neg
+Op -> Opi Method
+Op -> Opi Var
+Op -> EN Tutup
+EN -> Buka Op 
 Opi -> Int Opu
+Opi -> Neg Opu
+Opi -> Method Opu
+Opi -> Var Opu
 Opi -> Op Opu
 Opu -> +
 Opu -> -
@@ -314,44 +399,68 @@ Opu -> Multiply Multiply
 
 #boolean
 Bool -> Bol Int
+Bool -> Bol Neg
 Bool -> Bol Var
-Bool -> Bol VarT
+Bool -> Bol Method
+Bool -> Bol Op
 Bool -> AON Bool
-Bool -> AON BoolT
 Bool -> AON Var
-Bool -> AON VarT
+Bool -> AON Int
+Bool -> AON Neg
+Bool -> AON Method
 Bool -> InBol Var
-Bool -> InBol VarT
-Bool -> InBol Int
+Bool -> InBol List
+Bool -> Bul List
+Bool -> Bul Var
+Bool -> Bul OpL
+Bool -> Bel String
+Bool -> Bel Var
+Bool -> Bel OpS
+Bul -> List Eq
+Bul -> Var Eq
+Bul -> OpL Eq
+Bel -> String Eq
+Bel -> Var Eq
+Bel -> OpS Eq
 Bol -> Int Eq
+Bol -> Neg Eq
 Bol -> Var Eq
-Bol -> VarT Eq
+Bol -> Method Eq
+Bol -> Op Eq
 AON -> not
 AON -> Bool AO
-AON -> BoolT AO
 InBol -> Var In
-InBol -> VarT In
 InBol -> Int In
+InBol -> Neg In
+InBol -> Op In
+InBol -> OpL In
+InBol -> OpS In
 InBol -> String In
 
+#Var
+Var -> Var List
+
 #Var, Int Bool tuple
-VarT -> HZ Tutup
+Var -> HZ Tutup
+Var -> HT Var
+Var -> Var Koma
 HZ -> Buka Var
-HZ -> Buka VarT
-IntT -> HY Tutup
+Int -> HY Tutup
 HY -> Buka Int
-HY -> Buka IntT
-BoolT -> HX Tutup
+Bool -> HX Tutup
 HX -> Buka Bool
-HX -> Buka BoolT
+Neg -> Strip Int
+Neg -> Strip Var
+Neg -> Strip Method
+Neg -> AN Tutup
+AN -> Buka Neg
+
 
 #kondisioal
 Cab -> Else TD
 Cab -> Cond TD
 Cond -> If Bool
-Cond -> If BoolT
 Cond -> Elif Bool
-Cond -> Elif BoolT
 
 #while
 WL -> Ulang TD
@@ -361,18 +470,42 @@ Ulang -> While Bool
 FL -> AB TD
 AB -> AC Tutup
 AB -> AF Var
-AB -> AF VarT
 AB -> AF List
 AC -> AD Int
+AC -> AD Neg
+AC -> AD Op
+AC -> AD Method
+AC -> AH Int
+AC -> AH Var
+AC -> AH Neg
+AC -> AH Method
+AC -> AH Op
+AH -> AI Koma
+AI -> AD Int
+AI -> AD Var
+AI -> AD Method
+AI -> AD Neg
+AI -> AJ Int
+AI -> AJ Neg
+AI -> AJ Var
+AI -> AJ Method
+AJ -> AK Koma
+AK -> AD Int
+AK -> AD Var
+AK -> AD Method
+AK -> AD Neg
 AD -> AE Buka
 AE -> AF Range
 AF -> AG In
 AG -> For Var
-AG -> For VarT
 
 #Def
 D -> BA TD
 BA -> Def Method
+BA -> BB Var
+BB -> BD Panah
+BD -> Def Method
+
 
 #Class
 C -> BC TD
@@ -401,17 +534,17 @@ FA -> Buka Any
 #Method
 Method -> Any Tup
 Method -> Any HA
+Ret -> Return Bool
 HA -> Buka HB
 HB -> Method Tutup
 HB -> Var Tutup
-HB -> VarT Tutup
 HB -> String Tutup
 HB -> MAny Tutup
+HC -> Buka Method
 
 #With
 WITH -> GA TD
 GA -> GB Var
-GA -> GB VarT
 GB -> GC As
 GC -> With MAny
 
@@ -423,19 +556,62 @@ IC -> MAny ID
 ID -> Kutip IE
 IE -> Kutip Kutip
 
-#Return
-Ret -> return
-Ret -> Return Var
-Ret -> Return VarT
-Ret -> Return Bool
-Ret -> Return Int
-Ret -> Return Op
-Ret -> Return String
 
-#Op sritng
-OpS -> JA String
-JA -> String Plus
-JA
+#Op string
+OpS -> JB String
+OpS -> JB Var
+OpS -> JA Int
+OpS -> JA Method
+OpS -> JA Var
+OpS -> JA Op
+OpS -> Int JC
+OpS -> Method JC
+OpS -> Var JC
+OpS -> Op JC
+OpS -> String JD
+OpS -> Var JD
+OpS -> JE Tutup
+OpS -> Buka OpS
+JB -> String Plus
+JB -> Var Plus
+JB -> OpS Plus
+JA -> String Multiply
+JA -> Var Multiply
+JA -> OpS Multiply
+JC -> Multiply String
+JC -> Multiply Var
+JC -> Multiply OpS
+JD -> Plus String
+JD -> Plus Var
+JD -> Plus OpS  
+
+#Op List
+OpL -> LB List
+OpL -> LB Var
+OpL -> LA Int
+OpL -> LA Method
+OpL -> LA Var
+OpL -> LA Op
+OpL -> Int LC
+OpL -> Method LC
+OpL -> Var LC
+OpL -> Op LC
+OpL -> List LD
+OpL -> Var LD
+OpL -> LE Tutup
+OpL -> Buka OpL
+LB -> List Plus
+LB -> Var Plus
+LB -> OpL Plus
+LA -> List Multiply
+LA -> Var Multiply
+LA -> OpL Multiply
+LC -> Multiply List
+LC -> Multiply Var
+LC -> Multiply OpL
+LD -> Plus List
+LD -> Plus Var
+LD -> Plus OpL  
 
 #Terminal untuk boolean
 Less -> <
@@ -456,6 +632,8 @@ KurawalT -> }
 
 #Terminal lain
 Koma -> ,
+Strip -> -
+Panah -> Strip Greater
 
 #Operator
 Plus -> +
