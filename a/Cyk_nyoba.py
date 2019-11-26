@@ -147,14 +147,12 @@ class Grammar(object):
         self.countTree = len(self.parseTab[self.panjang-1][0].tipes)
         if   (isanysame(self.parseTab[self.panjang-1][0].tipes,self.start)) :
             print("----------------------------------------")
-            print('The sentence IS accepted in the language')
-            print('Number of possible trees: ' + str(self.countTree))
+            print("----------------Accepted----------------")
             print("----------------------------------------")
-            
         else:
-            print("--------------------------------------------")
-            print('The sentence IS NOT accepted in the language')
-            print("--------------------------------------------")
+            print("----------------------------------------")
+            print("--------------Syntax Error--------------")
+            print("----------------------------------------")
         
     def getTrees(self):
         return self.parseTab[self.panjang-1][0].listPR
