@@ -1,21 +1,22 @@
 from my_CYK import Grammar
+import argparse
 
-gram = Grammar('grammar.txt')
-print("----------------------------------------")
-print("-------------PYTHON COMPILER------------")
-print("----------------------------------------")
-
-print("Masukkan nama file : ", end="")
-filename = input()
-
-print("----------------------------------------")
-print("------------Tunggu bentar ya------------")
-print("----------------------------------------")
-with open(filename,'r') as file:
-    data = file.read()
-    try :
-        gram.parse(data)
-    except :
-        print("----------------------------------------")
-        print("--------Kebanyakan programnya ): -------")
-        print("----------------------------------------")
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument("filename", help ="Menerima inputan nama file yang akan dibaca")
+    args = parser.parse_args()
+    gram = Grammar('grammar.txt')
+    print("----------------------------------------")
+    print("-------------PYTHON COMPILER------------")
+    print("----------------------------------------")
+    print("----------------------------------------")
+    print("------------Tunggu bentar ya------------")
+    print("----------------------------------------")
+    with open(args.filename,'r') as file:
+        data = file.read()
+        try :
+            gram.parse(data)
+        except :
+            print("----------------------------------------")
+            print("--------Kebanyakan programnya ): -------")
+            print("----------------------------------------")
