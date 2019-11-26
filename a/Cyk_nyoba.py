@@ -1,92 +1,71 @@
 import keyword
 
-class Dictlist(dict):
-    
+class ListBahasa(dict):
     def __setitem__(self, key, value):
-        
         try:
             self[key]
         except KeyError:
-            super(Dictlist, self).__setitem__(key, [])
+            super(ListBahasa, self).__setitem__(key, [])
         self[key].append(value)
 
 
-class production_rule(object):
-    
+class rules(object): 
     result = None
-    p1 = None
-    p2 = None
-    
-    #Parameters:
-    #   Result: String
-    #   p1: Production rule (left child of the production rule)
-    #   p2: Production rule (right child of the production rule)
-    def __init__(self,result,p1,p2):
+    leftPro = None
+    rightPro = None
+
+    def __init__(self,result,leftPro,rightPro):
         self.result = result
-        self.p1 = p1
-        self.p2 = p2
-    
-    #Returns the result of the production rule, VP, S, NP... 
-    @property
-    def get_type(self):
+        self.leftPro = leftPro
+        self.rightPro = rightPro
+
+    def tipe(self):
         return self.result
-    
-    #Returns the left child of the production rule
-    @property
-    def get_left(self):
-        return self.p1
-    
-    #Returns the right child of the production rule
-    @property
-    def get_right(self):
-        return self.p2
+
+    def kiri(self):
+        return self.leftPro
+
+    def kanan(self):
+        return self.rightPro
 
 class Cell(object):
-    productions = []
-    
-    
-    #Parameters:
-    #   Productions: List of production rules
-    
-    def __init__(self, productions=None):
-        if productions is None:
-            self.productions = []
+    listPR = []
+
+    def __init__(self, listPR=None):
+        if listPR is None:
+            self.listPR = []
         else:
-            self.productions = productions
+            self.listPR = listPR
             
-    def add_production(self, result,p1,p2):
-        self.productions.append(production_rule(result,p1,p2))
+    def appendProduksi(self, result,leftPro,rightPro):
+        self.listPR.append(rules(result,leftPro,rightPro))
     
-    def set_productions(self, p):
-        self.productions = p
+    def konfProduksis(self, p):
+        self.listPR = p
     
-    @property
-    def get_types(self):
+    def tipes(self):
         types = []
-        for p in self.productions:
+        for p in self.listPR:
             types.append(p.result)
         return types
-    @property
-    def get_rules(self):       
-        return self.productions
+
+    def getRules(self):       
+        return self.listPR
 
 
 class Grammar(object):
     
-    grammar_rules = Dictlist()
-    parse_table = None
-    length = 0
-    tokens = []
-    number_of_trees = 0
+    grammarRules = ListBahasa()
+    parseTab = None
+    panjang = 0
+    token = []
+    countTree = 0
     start = []
     
-    #Parameters:
-    #   Filename: file containing a grammar
-    
     def __init__(self, filename):
-        self.grammar_rules = Dictlist()
-        self.parse_table = None
-        self.length = 0
+        self.grammarRules = ListBahasa()
+        self.parseTab = None
+        self.panjang = 0
         self.start = []
         file = open(filename)
         for line in file:
@@ -96,82 +75,76 @@ class Grammar(object):
                 self.start.append(line.split("->")[1].rstrip().strip())
                 continue
             a, b = line.split("->")
-            self.grammar_rules[b.rstrip().strip()]=a.rstrip().strip()
+            self.grammarRules[b.rstrip().strip()]=a.rstrip().strip()
         
-        if len(self.grammar_rules) == 0:
+        if len(self.grammarRules) == 0:
             raise ValueError("No rules found in the grammar file")
         print('')
         print('Grammar file readed succesfully. Rules readed:')
-        self.print_rules()
+        self.printRules()
         print('')
-    
-    #Print the production rules in the grammar
-    def print_rules(self):
+        
+    def printRules(self):
         pass
     """
-    def print_rules(self):
-        for r in self.grammar_rules:
-            for p in self.grammar_rules[r]:
+    def printRules(self):
+        for r in self.grammarRules:
+            for p in self.grammarRules[r]:
                 print(str(p) + ' --> ' + str(r))
         """
-    def apply_rules(self,t):
+    def setRules(self,t):
         try:
-            print(self.grammar_rules[t])
-            return self.grammar_rules[t]
+            return self.grammarRules[t]
         except KeyError as r:
             return None
-            
-    #Parse a sentence (string) with the CYK algorithm   
+              
     def parse(self,sentence):
-        self.number_of_trees = 0
-        self.tokens = lexer(sentence.replace("True", "1").replace("False", "1").replace("None", "1"))
-        self.length = len(self.tokens)
-        if self.length < 1:
+        self.countTree = 0
+        self.token = lexer(sentence.replace("True", "1").replace("False", "1").replace("None", "1"))
+        self.panjang = len(self.token)
+        if self.panjang < 1:
             raise ValueError("The sentence could no be read")
-        self.parse_table = [ [Cell() for x in range(self.length - y)] for y in range(self.length) ]
+        self.parseTab = [ [Cell() for x in range(self.panjang - y)] for y in range(self.panjang) ]
         
-         #Process the first line
-        
-        for x, t in enumerate(self.tokens):
-            print(t)
-            
-            
-            r = self.apply_rules(t)
-            self.parse_table[0][x].add_production("Any",production_rule(t,None,None),None)
+        for x, t in enumerate(self.token):
+            r = self.setRules(t)
+            self.parseTab[0][x].appendProduksi("MAny",rules(t,None,None),None)
+            if len(t.split())==1 :
+                self.parseTab[0][x].appendProduksi("Any",rules(t,None,None),None)
             if isVar(t) :
-                self.parse_table[0][x].add_production("Var",production_rule(t,None,None),None)
+                self.parseTab[0][x].appendProduksi("Var",rules(t,None,None),None)
             if isInt(t):
-                self.parse_table[0][x].add_production("Int",production_rule(t,None,None),None)
-                self.parse_table[0][x].add_production("Bool",production_rule(t,None,None),None)
+                self.parseTab[0][x].appendProduksi("Int",rules(t,None,None),None)
+                self.parseTab[0][x].appendProduksi("Bool",rules(t,None,None),None)
             if r != None:
                 for w in r: 
-                    self.parse_table[0][x].add_production(w,production_rule(t,None,None),None)
+                    self.parseTab[0][x].appendProduksi(w,rules(t,None,None),None)
         
         
         #Run CYK-Parser
         
         
-        for l in range(2,self.length+1):
-            for s in range(1,self.length-l+2):
+        for l in range(2,self.panjang+1):
+            for s in range(1,self.panjang-l+2):
+                self.parseTab[l-1][s-1].appendProduksi("MAny",None,None)
                 for p in range(1,l-1+1):
-                    
-                    t1 = self.parse_table[p-1][s-1].get_rules
-                    t2 = self.parse_table[l-p-1][s+p-1].get_rules
+                    t1 = self.parseTab[p-1][s-1].getRules
+                    t2 = self.parseTab[l-p-1][s+p-1].getRules
                             
                     for a in t1:
                         for b in t2:
-                            r = self.apply_rules(str(a.get_type) + " " + str(b.get_type))
-                               
+                            #print(a,b,r)
+                            r = self.setRules(str(a.tipe) + " " + str(b.tipe))
                             if r is not None:
                                 for w in r:
-                                    print('Applied Rule: ' + str(w) + '[' + str(l) + ',' + str(s) + ']' + ' --> ' + str(a.get_type) + '[' + str(p) + ',' + str(s) + ']' + ' ' + str(b.get_type)+ '[' + str(l-p) + ',' + str(s+p) + ']')
-                                    self.parse_table[l-1][s-1].add_production(w,a,b)
+                                    #print('Applied Rule: ' + str(w) + '[' + str(l) + ',' + str(s) + ']' + ' --> ' + str(a.tipe) + '[' + str(p) + ',' + str(s) + ']' + ' ' + str(b.tipe)+ '[' + str(l-p) + ',' + str(s+p) + ']')
+                                    self.parseTab[l-1][s-1].appendProduksi(w,a,b)
                                
-        self.number_of_trees = len(self.parse_table[self.length-1][0].get_types)
-        if   (isanysame(self.parse_table[self.length-1][0].get_types,self.start)) :
+        self.countTree = len(self.parseTab[self.panjang-1][0].tipes)
+        if   (isanysame(self.parseTab[self.panjang-1][0].tipes,self.start)) :
             print("----------------------------------------")
             print('The sentence IS accepted in the language')
-            print('Number of possible trees: ' + str(self.number_of_trees))
+            print('Number of possible trees: ' + str(self.countTree))
             print("----------------------------------------")
             
         else:
@@ -179,18 +152,15 @@ class Grammar(object):
             print('The sentence IS NOT accepted in the language')
             print("--------------------------------------------")
         
-        
-    #Returns a list containing the parent of the possible trees that we can generate for the last sentence that have been parsed
-    def get_trees(self):
-        return self.parse_table[self.length-1][0].productions
+    def getTrees(self):
+        return self.parseTab[self.panjang-1][0].listPR
                 
                 
     #@TODO
-    def print_trees(self):
+    def printTrees(self):
         pass
-                      
-    #Print the CYK parse trable for the last sentence that have been parsed.             
-    def print_parse_table(self):
+                                  
+    def printParseTab(self):
         
         
         try:
@@ -214,13 +184,13 @@ class Grammar(object):
         
         
         
-        for row in reversed(self.parse_table):
+        for row in reversed(self.parseTab):
             l = []
             for cell in row:
-                l.append(cell.get_types)
+                l.append(cell.tipes)
             lines.append(l)
         
-        lines.append(self.tokens)
+        lines.append(self.token)
         print('')
         print(tabulate(lines))
         print('')
@@ -248,11 +218,12 @@ def isInt(t):
 
 
 def lexer(string):
-    symbols = ['{', '}', '(', ')', '[', ']', '.', '"', '*', '\n', ':', ','] # single-char keywords
+    symbols = ['{', '}', '(', ')', '[', ']',  '"', '*', ':', ',',"'",'"', '='] # single-char keywords
     other_symbols = ['#'] # multi-char keywords
     KEYWORDS =keyword.kwlist
-    
-
+    KEYWORDS.append("range")
+    skip = ["\n","","\t"]
+    valid = [ "A" , "B" , "C" , "D" , "E" , "F" , "G" , "H" , "I" , "J" , "K" , "L" , "M" , "N" , "O" , "P" , "Q" , "R" , "S" , "T" , "U" , "V" , "W" , "X" , "Y" , "Z" , "a" , "b" , "c" , "d" , "e" , "f" , "g" , "h" , "i" , "j" , "k" , "l" , "m" , "n" , "o" , "p" , "q" , "r" , "s" , "t" , "u" , "v" , "w" , "x" , "y" , "z" , "0" , "1" , "2" , "3" , "4" , "5" , "6" , "7" , "8" , "9" , "_" ]
     white_space = ' '
     lexeme = ''
     lex =[]
@@ -260,15 +231,22 @@ def lexer(string):
         if string[i] in symbols :
             lex.append(char)
         elif string[i] in skip :
-            continue
+            if lexeme != '' :
+                lex.append(lexeme)
+                lexeme = ''
         else :
             if char != white_space:
                 lexeme += char # adding a char each time
             if (i+1 < len(string)): # prevents error
-                if string[i+1] == white_space or string[i+1] in symbols or lexeme in KEYWORDS: # if next char == ' '
+                if string[i+1] == white_space or string[i+1] in symbols or (lexeme in KEYWORDS and string[i+1] not in valid): # if next char == ' '
                     if lexeme != '':
-                        lex.append(lexeme)
-                        lexeme = ''
-    
+                            if lexeme != '' :
+                                lex.append(lexeme)
+                                lexeme = ''
+    if lexeme not in skip :
+        if lexeme != '' :
+            lex.append(lexeme)
+            lexeme = ''
+    print(lex)
     return lex
 
