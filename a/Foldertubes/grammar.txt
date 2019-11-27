@@ -562,7 +562,13 @@ FA -> Buka Any
 
 #Method
 Method -> Var Tup
+Method -> String Tup
+Method -> List Tup
 Method -> Var HA
+Method -> String HA
+Method -> List HA
+Method -> HL HA
+Method -> HL Tup
 HA -> Buka HB
 HB -> Method Tutup
 HB -> Var Tutup

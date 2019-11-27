@@ -4,12 +4,9 @@ from CYK_Paser import Grammar
 
 g = Grammar('example_grammar1.txt')
 
-file = open("input1.txt")
+file = open("input3.txt")
 i =1
 for line in  file :
-    if i!= 14 :
-        i+= 1
-        continue
     print("HASIL BARIS KE" ,i)
     if (line == "") :
         print("ACCEPTED")
@@ -17,6 +14,7 @@ for line in  file :
         g.parse(line)
         if (i==14) :
             g.printParseTab()
+            pass
     i += 1
 
 

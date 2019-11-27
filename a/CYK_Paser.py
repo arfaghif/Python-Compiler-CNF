@@ -271,7 +271,7 @@ def lexer(string):
             if char != white_space:
                 lexeme += char 
             if (i+1 < len(string)): 
-                if string[i+1] == white_space or string[i+1] in symbols or (lexeme in KEYWORDS and string[i+1] not in valid): 
+                if string[i+1] == white_space or string[i+1] in symbols or string[i+1] == '.' or (lexeme in KEYWORDS and string[i+1] not in valid): 
                     if lexeme != '':
                             if lexeme != '' :
                                 if lexeme == "for" or lexeme == "while" :

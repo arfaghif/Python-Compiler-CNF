@@ -556,6 +556,19 @@ FA -> Buka Any
 #Method
 Method -> Var Tup
 Method -> Var HA
+Method -> HL HA
+Method -> HL Tup
+Method -> String Att
+Method -> Var Att
+Method -> List Att
+Method -> OpL Att
+Method -> OpS Att
+Att -> Att List
+HL -> String Att
+HL -> Var Att
+HL -> List Att
+HL -> OpL Att
+HL -> OpS Att
 HA -> Buka HB
 HB -> Method Tutup
 HB -> Var Tutup
