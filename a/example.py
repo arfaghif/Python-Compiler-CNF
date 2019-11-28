@@ -4,18 +4,19 @@ from CYK_Paser import Grammar
 
 g = Grammar('example_grammar1.txt')
 
-file = open("input.txt")
+file = open("input2.txt")
 i =1
 for line in  file :
     print("HASIL BARIS KE" ,i)
+    i +=1
     if (line == "") :
         print("ACCEPTED")
     else :
-        g.parse(line)
-        if (i==24) :
-            g.printParseTab()
+        try:
+            g.parse(line)
+        except:
+            continue
             
-    i += 1
 
 
 

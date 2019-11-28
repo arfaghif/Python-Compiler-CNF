@@ -13,7 +13,7 @@ $ -> D
 $ -> IM
 $ -> IMA
 $ -> C
-$ -> R
+$ -> Raise
 $ -> WITH
 $ -> Method
 $ -> Kom
@@ -34,7 +34,6 @@ S -> S D
 S -> S IM
 S -> S IMA
 S -> S C
-S -> S R
 S -> S Break
 S -> S Continue
 S -> S Return
@@ -52,7 +51,6 @@ S -> D Assign
 S -> IM Assign
 S -> IMA Assign
 S -> C Assign
-S -> R Assign
 S -> Break Assign
 S -> Continue Assign
 S -> Return Assign
@@ -69,7 +67,6 @@ S -> D Cab
 S -> IM Cab
 S -> IMA Cab
 S -> C Cab
-S -> R Cab
 S -> Break Cab
 S -> Continue Cab
 S -> Return Cab
@@ -86,7 +83,6 @@ S -> D FL
 S -> IM FL
 S -> IMA FL
 S -> C FL
-S -> R FL
 S -> Break FL
 S -> Continue FL
 S -> Return FL
@@ -103,7 +99,6 @@ S -> D WL
 S -> IM WL
 S -> IMA WL
 S -> C WL
-S -> R WL
 S -> Break WL
 S -> Continue WL
 S -> Return WL
@@ -120,7 +115,6 @@ S -> D D
 S -> IM D
 S -> IMA D
 S -> C D
-S -> R D
 S -> Break D
 S -> Continue D
 S -> Return D
@@ -137,7 +131,6 @@ S -> D IM
 S -> IM IM
 S -> IMA IM
 S -> C IM
-S -> R IM
 S -> Break IM
 S -> Continue IM
 S -> Return IM
@@ -154,7 +147,6 @@ S -> D IMA
 S -> IM IMA
 S -> IMA IMA
 S -> C IMA
-S -> R IMA
 S -> Break IMA
 S -> Continue IMA
 S -> Return IMA
@@ -171,7 +163,6 @@ S -> D C
 S -> IM C
 S -> IMA C
 S -> C C
-S -> R C
 S -> Break C
 S -> Continue C
 S -> Return C
@@ -180,23 +171,6 @@ S -> Method C
 S -> WITH C
 S -> Panah C
 S -> Kom C
-S -> Assign R
-S -> Cab R
-S -> FL R
-S -> WL R
-S -> D R
-S -> IM R
-S -> IMA R
-S -> C R
-S -> R R
-S -> Break R
-S -> Continue R
-S -> Return R
-S -> Pass R
-S -> Method R
-S -> WITH R
-S -> Panah R
-S -> Kom R
 S -> Assign Break
 S -> Cab Break
 S -> FL Break
@@ -205,7 +179,6 @@ S -> D Break
 S -> IM Break
 S -> IMA Break
 S -> C Break
-S -> R Break
 S -> Break Break
 S -> Continue Break
 S -> Return Break
@@ -222,7 +195,6 @@ S -> D Continue
 S -> IM Continue
 S -> IMA Continue
 S -> C Continue
-S -> R Continue
 S -> Break Continue
 S -> Continue Continue
 S -> Return Continue
@@ -239,7 +211,6 @@ S -> D Return
 S -> IM Return
 S -> IMA Return
 S -> C Return
-S -> R Return
 S -> Break Return
 S -> Continue Return
 S -> Return Return
@@ -256,7 +227,6 @@ S -> D Pass
 S -> IM Pass
 S -> IMA Pass
 S -> C Pass
-S -> R Pass
 S -> Break Pass
 S -> Continue Pass
 S -> Return Pass
@@ -273,7 +243,6 @@ S -> D Method
 S -> IM Method
 S -> IMA Method
 S -> C Method
-S -> R Method
 S -> Break Method
 S -> Continue Method
 S -> Return Method
@@ -290,7 +259,6 @@ S -> D WITH
 S -> IM WITH
 S -> IMA WITH
 S -> C WITH
-S -> R WITH
 S -> Break WITH
 S -> Continue WITH
 S -> Return WITH
@@ -307,7 +275,6 @@ S -> D Panah
 S -> IM Panah
 S -> IMA Panah
 S -> C Panah
-S -> R Panah
 S -> Break Panah
 S -> Continue Panah
 S -> Return Panah
@@ -324,7 +291,6 @@ S -> D Kom
 S -> IM Kom
 S -> IMA Kom
 S -> C Kom
-S -> R Kom
 S -> Break Kom
 S -> Continue Kom
 S -> Return Kom
@@ -365,6 +331,8 @@ Assign -> Sign Method
 Assign -> Sign Var
 Assign -> Sign OpL
 Assign -> Sign OpS
+Assign -> Sign TupK
+TupK -> KurawalB KurawalT
 Sign -> Var SamD
 Sign -> Asss SamD
 Asss -> Var Opu
@@ -445,19 +413,10 @@ AON -> not
 AON -> Bool AO
 InBol -> Var In
 InBol -> Int In
-InBol -> Neg In
 InBol -> Op In
 InBol -> OpL In
 InBol -> OpS In
-InBol -> String NegIn
-InBol -> Var NegIn
-InBol -> Int NegIn
-InBol -> Neg NegIn
-InBol -> Op NegIn
-InBol -> OpL NegIn
-InBol -> OpS NegIn
-InBol -> String NegIn
-NegIn -> Not In
+In -> Not In
 
 #Var
 Var -> Var List
@@ -482,6 +441,7 @@ AN -> Buka Neg
 #kondisioal
 Cab -> Else TD
 Cab -> Cond TD
+Cab -> Cab Raise
 Cond -> If Bool
 Cond -> If Var
 Cond -> Elif Bool
@@ -526,11 +486,12 @@ AK -> AD Neg
 AK -> AD Op
 AD -> AE Buka
 AE -> AF Range
-AE -> AF Enum
+AE -> AK Enum
 AF -> AG In
-AF -> AG NegIn
 AG -> For Var
-AG -> For Content
+AK -> AL In
+AL -> For Content
+
 
 #Def
 D -> BA TD
@@ -543,6 +504,7 @@ BD -> Def Method
 #Class
 C -> BC TD
 BC -> Class Method
+BC -> Class Var
 
 #import
 IM -> Import Any
@@ -551,14 +513,7 @@ IMA -> CA Any
 CA -> IM As
 CB -> Any IM
 
-#Raise
-R -> raise
-R -> DA Tutup
-DA -> DB Petik
-DB -> DC Any
-DC -> DD Petik
-DD -> DE Buka
-DE -> Raise Any
+
 
 #tuple
 Tup -> Buka Tutup
@@ -567,20 +522,13 @@ FA -> Buka Any
 
 #Method
 Method -> Var Tup
+Method -> String Tup
+Method -> List Tup
 Method -> Var HA
+Method -> String HA
+Method -> List HA
 Method -> HL HA
 Method -> HL Tup
-Method -> String Att
-Method -> Var Att
-Method -> List Att
-Method -> OpL Att
-Method -> OpS Att
-Att -> Att List
-HL -> String Att
-HL -> Var Att
-HL -> List Att
-HL -> OpL Att
-HL -> OpS Att
 HA -> Buka HB
 HB -> Method Tutup
 HB -> Var Tutup
@@ -707,8 +655,6 @@ TD -> :
 #Pengurungan
 Sbuka -> [
 Stutup -> ]
-Sbuka -> {
-Stutup -> }
 Buka -> (
 Tutup -> )
 Petik -> "
