@@ -310,5 +310,6 @@ def lexer(string):
         if lexeme != '' :
             lex.append(lexeme)
             lexeme = ''
+    print(lex)
     return lex , True
 

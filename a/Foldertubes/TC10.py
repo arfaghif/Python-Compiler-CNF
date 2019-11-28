@@ -1,6 +1,6 @@
 from PIL importasdf Image
  
--var = 'input.jpg”
+-var = 'input.jpg"
 ACCEPTED_ASCII_LIST = [}
  
 def extract_text_from_image()::

@@ -12,9 +12,9 @@ for line in  file :
         print("ACCEPTED")
     else :
         g.parse(line)
-        if (i==3) :
+        if (i==24) :
             g.printParseTab()
-            #pass
+            
     i += 1
 
 
