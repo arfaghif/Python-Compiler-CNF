@@ -204,7 +204,7 @@ def isInt(t):
 
 
 def lexer(string):
-    symbols = ['(', ')', '[', ']', ">", "<", "!", '"', '*',"/", "+", "-","%", ':', ',',"'", '='] # Symbol yang dipisahkan
+    symbols = ['{', '}','(', ')', '[', ']', ">", "<", "!", '"', '*',"/", "+", "-","%", ':', ',',"'", '='] # Symbol yang dipisahkan
     KEYWORDS =keyword.kwlist
     KEYWORDS.append("range")
     skip = ["\n","","\t"]

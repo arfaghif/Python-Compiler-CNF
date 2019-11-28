@@ -1,33 +1,20 @@
-#NIM/Nama   : 16518251/Naufal Arfananda Ghifari
-#Tanggal    : 21 September 2018
-#Deskripsi  : Pembagian anggota tim
-
-#Program Games ITB
-#Dibentuk beberapa tim untuk acara Games ini, harus semua ikut, dan harus pula sama rata.
-
-#KAMUS
-#N:integer
-#i,j,k:integer
-#A: Array of integer
-#count, FPB: integer
-
-#ALGORITMA
-
-N=int(input('Masukkan jumlah fakultas: '))
-A = [0 for A in range(N)] #Deklarasi Array
-for i in range(N):
-    A[i] = int(input('Jumlah mahasiswa dari fakultas '+ str(i+1)+ ': '))
-j=1
-while j <=A[0]:
-    count=0
-    k=0
-    while k<N:
-        if (A[k]%j==0):
-           count=count+1 
-        else:
-            break
-        k=k+1
-    if count==N:
-        FPB=j
-    j=j+1
-print('Jumlah anggota tim terbanyak yang mungkin adalah  '+str(FPB))
+import sys
+class Car:
+	def __init__(self):
+		self.engine = None
+		self.price = 0
+		self.brand = ''
+		self.gas = 0
+	def set_engine(self, engine):
+		self.engine = engine
+	def set_price(self, price):
+		self.price = price
+	def set_brand(self, brand):
+		self.brand = brand
+	def fill_gas(self, value):
+		self.gas += value
+	def start(self):
+		if gas <= 0:
+			raise
+		else:
+			print('The car is starting...')
