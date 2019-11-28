@@ -16,7 +16,7 @@ if __name__ == '__main__':
         data = file.read()
         try :
             gram.parse(data)
-        except :
+        except KeyboardInterrupt:
             print("----------------------------------------")
-            print("--------Kebanyakan programnya ): -------")
+            print("--------Kebanyakan yaa programnya ): -------")
             print("----------------------------------------")
