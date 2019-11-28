@@ -341,17 +341,10 @@ String -> Petik Petik
 String -> EA Petik
 String -> EB Kutip
 String -> EC Tutup
-String -> STR T
 EC -> Buka String
 EA -> Petik MAny
 EB -> Kutip MAny
-T -> Buka TA
-TA -> Int Tutup
-TA -> Var Tutup
-TA -> Op Tutup
-TA -> Method Tutup
-TA -> Neg Tutup
-STR -> str
+
 
 #kumpulan operator boolean
 Eq -> >
@@ -373,7 +366,7 @@ Assign -> Sign Var
 Assign -> Sign OpL
 Assign -> Sign OpS
 Sign -> Var SamD
-Sign -> Asss =
+Sign -> Asss SamD
 Asss -> Var Opu
 
 
@@ -456,7 +449,15 @@ InBol -> Neg In
 InBol -> Op In
 InBol -> OpL In
 InBol -> OpS In
-InBol -> String In
+InBol -> String NegIn
+InBol -> Var NegIn
+InBol -> Int NegIn
+InBol -> Neg NegIn
+InBol -> Op NegIn
+InBol -> OpL NegIn
+InBol -> OpS NegIn
+InBol -> String NegIn
+NegIn -> Not In
 
 #Var
 Var -> Var List
@@ -525,8 +526,11 @@ AK -> AD Neg
 AK -> AD Op
 AD -> AE Buka
 AE -> AF Range
+AE -> AF Enum
 AF -> AG In
+AF -> AG NegIn
 AG -> For Var
+AG -> For Content
 
 #Def
 D -> BA TD
@@ -548,6 +552,7 @@ CA -> IM As
 CB -> Any IM
 
 #Raise
+R -> raise
 R -> DA Tutup
 DA -> DB Petik
 DB -> DC Any
@@ -562,13 +567,20 @@ FA -> Buka Any
 
 #Method
 Method -> Var Tup
-Method -> String Tup
-Method -> List Tup
 Method -> Var HA
-Method -> String HA
-Method -> List HA
 Method -> HL HA
 Method -> HL Tup
+Method -> String Att
+Method -> Var Att
+Method -> List Att
+Method -> OpL Att
+Method -> OpS Att
+Att -> Att List
+HL -> String Att
+HL -> Var Att
+HL -> List Att
+HL -> OpL Att
+HL -> OpS Att
 HA -> Buka HB
 HB -> Method Tutup
 HB -> Var Tutup
@@ -695,6 +707,8 @@ TD -> :
 #Pengurungan
 Sbuka -> [
 Stutup -> ]
+Sbuka -> {
+Stutup -> }
 Buka -> (
 Tutup -> )
 Petik -> "
@@ -735,4 +749,4 @@ Return -> return
 While -> while
 With -> with
 Range -> range
-
+Enum -> enumerate
